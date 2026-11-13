@@ -4,7 +4,7 @@
       "name": "distill-20261107--L3a-100k-seed0",
       "source_commit": "90c9a1e801d3af3b0c5e43abe81396eeb48008c3",
       "source_directory": "source/90c9a1e801d3",
-      "archive": "/workspace/upenn/artifacts/L3/distill-20261107--L3a-100k-seed0",
+      "archive": "/workspace/artifacts/L3/distill-20261107--L3a-100k-seed0",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -29,7 +29,7 @@
       "name": "distill-20261107--L3b-100k-seed0",
       "source_commit": "90c9a1e801d3af3b0c5e43abe81396eeb48008c3",
       "source_directory": "source/90c9a1e801d3",
-      "archive": "/workspace/upenn/artifacts/L3/distill-20261107--L3b-100k-seed0",
+      "archive": "/workspace/artifacts/L3/distill-20261107--L3b-100k-seed0",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -54,7 +54,7 @@
       "name": "distill_memory_20261110--ablations--L3b-c1-h2-control",
       "source_commit": "1c477a1ac4e43bdd03c73a84c13f047b006fb5b7",
       "source_directory": "source/1c477a1ac4e4",
-      "archive": "/workspace/upenn/artifacts/L3/distill_memory_20261110--ablations--L3b-c1-h2-control",
+      "archive": "/workspace/artifacts/L3/distill_memory_20261110--ablations--L3b-c1-h2-control",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -82,7 +82,7 @@
       "name": "distill_memory_20261110--ablations--L3b-c3-h16-aux",
       "source_commit": "1c477a1ac4e43bdd03c73a84c13f047b006fb5b7",
       "source_directory": "source/1c477a1ac4e4",
-      "archive": "/workspace/upenn/artifacts/L3/distill_memory_20261110--ablations--L3b-c3-h16-aux",
+      "archive": "/workspace/artifacts/L3/distill_memory_20261110--ablations--L3b-c3-h16-aux",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -110,7 +110,7 @@
       "name": "distill_memory_20261110--ablations--L3b-c3-h16-control",
       "source_commit": "1c477a1ac4e43bdd03c73a84c13f047b006fb5b7",
       "source_directory": "source/1c477a1ac4e4",
-      "archive": "/workspace/upenn/artifacts/L3/distill_memory_20261110--ablations--L3b-c3-h16-control",
+      "archive": "/workspace/artifacts/L3/distill_memory_20261110--ablations--L3b-c3-h16-control",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -138,7 +138,7 @@
       "name": "distill_memory_20261110--ablations--L3b-c3-h8-aux",
       "source_commit": "1c477a1ac4e43bdd03c73a84c13f047b006fb5b7",
       "source_directory": "source/1c477a1ac4e4",
-      "archive": "/workspace/upenn/artifacts/L3/distill_memory_20261110--ablations--L3b-c3-h8-aux",
+      "archive": "/workspace/artifacts/L3/distill_memory_20261110--ablations--L3b-c3-h8-aux",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -166,7 +166,7 @@
       "name": "distill_memory_20261110--correction_round1--extra-training-control",
       "source_commit": "1c477a1ac4e43bdd03c73a84c13f047b006fb5b7",
       "source_directory": "source/1c477a1ac4e4",
-      "archive": "/workspace/upenn/artifacts/L3/distill_memory_20261110--correction_round1--extra-training-control",
+      "archive": "/workspace/artifacts/L3/distill_memory_20261110--correction_round1--extra-training-control",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -194,7 +194,7 @@
       "name": "distill_memory_20261110--correction_round1--with-corrections",
       "source_commit": "1c477a1ac4e43bdd03c73a84c13f047b006fb5b7",
       "source_directory": "source/1c477a1ac4e4",
-      "archive": "/workspace/upenn/artifacts/L3/distill_memory_20261110--correction_round1--with-corrections",
+      "archive": "/workspace/artifacts/L3/distill_memory_20261110--correction_round1--with-corrections",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -222,7 +222,7 @@
       "name": "scripted_noisy_collection_20261109--ablations--L3a-c1-seed0",
       "source_commit": "90c9a1e801d3af3b0c5e43abe81396eeb48008c3",
       "source_directory": "source/90c9a1e801d3",
-      "archive": "/workspace/upenn/artifacts/L3/scripted_noisy_collection_20261109--ablations--L3a-c1-seed0",
+      "archive": "/workspace/artifacts/L3/scripted_noisy_collection_20261109--ablations--L3a-c1-seed0",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -247,7 +247,7 @@
       "name": "scripted_noisy_collection_20261109--ablations--L3b-c3-half-seed0",
       "source_commit": "90c9a1e801d3af3b0c5e43abe81396eeb48008c3",
       "source_directory": "source/90c9a1e801d3",
-      "archive": "/workspace/upenn/artifacts/L3/scripted_noisy_collection_20261109--ablations--L3b-c3-half-seed0",
+      "archive": "/workspace/artifacts/L3/scripted_noisy_collection_20261109--ablations--L3b-c3-half-seed0",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,
@@ -272,7 +272,7 @@
       "name": "scripted_noisy_collection_20261109--ablations--L3b-c3-seed0",
       "source_commit": "90c9a1e801d3af3b0c5e43abe81396eeb48008c3",
       "source_directory": "source/90c9a1e801d3",
-      "archive": "/workspace/upenn/artifacts/L3/scripted_noisy_collection_20261109--ablations--L3b-c3-seed0",
+      "archive": "/workspace/artifacts/L3/scripted_noisy_collection_20261109--ablations--L3b-c3-seed0",
       "config": {
         "latent_dim": 192,
         "action_dim": 125,

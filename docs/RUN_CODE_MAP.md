@@ -7,7 +7,7 @@ The existing checkout is `/workspace/upenn/block-stack-world-model`.
 | Family | Run directory | Meaning |
 | --- | --- | --- |
 | L2 | `analysis/Privileged FM Policy/` | Privileged-state flow policy; organization.json records the previous L2 names |
-| L3 | `/workspace/upenn/artifacts/L3/` | Visual inputs plus proprioception and controller targets; L3b adds action history |
+| L3 | `/workspace/artifacts/L3/` | Visual inputs plus proprioception and controller targets; L3b adds action history |
 | L4 | `analysis/L4/` | Visual policy; newer campaigns add action history |
 | RS-IMLE | `analysis/rs-imle/` | Rejection-sampling IMLE policies and adaptation experiments |
 
@@ -62,6 +62,21 @@ that worktree's `docs/BETTER_SCRIPTED_POLICY_5K.md`.
 
 Branch `smwm-clean` starts at base commit `9540172` in a separate worktree.
 Other worktrees' commits and the base checkout's uncommitted edits were not
-merged or reset. L3 outputs moved by same-filesystem rename, with their old
-path preserved as a symlink. Active source paths, datasets, and environments
+merged or reset. L3 outputs moved by same-filesystem rename, and their old analysis/run aliases were removed on request. Active source paths, datasets, and environments
 remain intact. Nothing was pushed.
+
+
+## Naming L2 and L4
+
+L2 and L4 are configuration labels for separate trained policies. They share
+`DistillPolicy` and `train_distill.py`, not learned weights. L2 selects
+`input_mode=priv`; L4 uses visual features. Renaming them to PFM and WMFM does
+not require changing the architecture or retraining.
+
+A compatible rename would add PFM/WMFM to `rung_config` and the trainer CLI,
+normalize old L2/L4 labels, update campaign/report labels and new output names,
+and test old/new names produce identical configurations and load existing
+checkpoints. Existing metadata and archived source should retain provenance.
+Renaming historical directories additionally requires updating path consumers;
+active campaign paths should stay fixed until their jobs finish. This naming
+change has not yet been applied.
