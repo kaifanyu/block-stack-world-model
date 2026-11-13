@@ -2,13 +2,14 @@
 
 ## Historical run outputs
 
-The existing checkout is `/workspace/upenn/block-stack-world-model`.
+The current view is in this worktree’s `analysis/`; the original checkout is
+`/workspace/upenn/block-stack-world-model`.
 
 | Family | Run directory | Meaning |
 | --- | --- | --- |
-| L2 | `analysis/Privileged FM Policy/` | Privileged-state flow policy; organization.json records the previous L2 names |
-| L3 | `/workspace/artifacts/L3/` | Visual inputs plus proprioception and controller targets; L3b adds action history |
-| L4 | `analysis/L4/` | Visual policy; newer campaigns add action history |
+| privilegeFM (L2) | `analysis/Privileged FM Policy/` | Privileged-state flow policy; organization.json records the previous L2 names |
+| simulatorFM (L3, archived) | `/workspace/artifacts/L3/` | Visual inputs plus proprioception and controller targets; L3b adds action history |
+| encoderFM (L4) | `analysis/Encoder FM Policy/` | Visual policy; newer campaigns add action history |
 | RS-IMLE | `analysis/rs-imle/` | Rejection-sampling IMLE policies and adaptation experiments |
 
 Each run's `run.json`, configuration, source manifest, and evaluation records
@@ -19,8 +20,11 @@ imply all campaigns used the same history length or training data.
 
 L2/L3/L4 share `assignment/training/training/train_distill.py` (training),
 `assignment/training/training/distill_policy.py` (model and rung configuration),
-and `assignment/training/data/distill.py` (data). These files live in experiment
-worktrees, not the base checkout's current tracked tree:
+and `assignment/training/data/distill.py` (data). These shared files now live
+in the main `smwm-clean` source tree, updated from encoder revision `57ded45`,
+with `assignment/experiments/distill_campaign.py` providing training utilities.
+Run the trainer from the repository root; `artifacts/L3/source/` is historical
+reference only. The original experiment worktrees remain available:
 
 - Original ladder: `/home/dev/.codex/worktrees/vision-distill-20261107/block-stack-world-model`
 - Memory variants: `/home/dev/.codex/worktrees/distill-memory-20261110/block-stack-world-model`
@@ -61,22 +65,68 @@ that worktree's `docs/BETTER_SCRIPTED_POLICY_5K.md`.
 ## Cleanup scope
 
 Branch `smwm-clean` starts at base commit `9540172` in a separate worktree.
-Other worktrees' commits and the base checkout's uncommitted edits were not
-merged or reset. L3 outputs moved by same-filesystem rename, and their old analysis/run aliases were removed on request. Active source paths, datasets, and environments
+The base checkout and running worktrees were not reset. Selected model/data/trainer
+files were copied into this branch as documented below. L3 outputs moved by same-filesystem rename, and their old analysis/run aliases were removed on request. Active source paths, datasets, and environments
 remain intact. Nothing was pushed.
 
 
-## Naming L2 and L4
+## Public names and launch presets
 
-L2 and L4 are configuration labels for separate trained policies. They share
-`DistillPolicy` and `train_distill.py`, not learned weights. L2 selects
-`input_mode=priv`; L4 uses visual features. Renaming them to PFM and WMFM does
-not require changing the architecture or retraining.
+The current names are `privilegeFM` (old L2), `encoderFM` (old L4), and
+`simulatorFM` (old L3b hybrid with action history). `simulatorFM-a` preserves
+old L3a without action history. `L3` is an alias for `simulatorFM`.
+Legacy `--rung L2/L4/L3a/L3b` commands still parse. Model class names,
+`policy_kind=distill_flow`, configuration fields, and state-dict keys remain
+stable. Saved historical metadata is not rewritten.
 
-A compatible rename would add PFM/WMFM to `rung_config` and the trainer CLI,
-normalize old L2/L4 labels, update campaign/report labels and new output names,
-and test old/new names produce identical configurations and load existing
-checkpoints. Existing metadata and archived source should retain provenance.
-Renaming historical directories additionally requires updating path consumers;
-active campaign paths should stay fixed until their jobs finish. This naming
-change has not yet been applied.
+The normal presets in `configs/fm_trials.json` include only privilegeFM and
+encoderFM. simulatorFM remains a compatibility mode, not an active preset.
+It cannot be merged into either other family without changing the inputs.
+Past simulatorFM outputs remain in `/workspace/artifacts/L3`; historical source
+snapshots retain their original names and hashes under `artifacts/L3/source`.
+
+## Launch from smwm-clean
+
+Use the existing environment from the repository root:
+
+```bash
+/workspace/upenn/block-stack-world-model/.venv/bin/python scripts/run_fm_trial.py --list
+/workspace/upenn/block-stack-world-model/.venv/bin/python scripts/run_fm_trial.py \
+  --preset privilegeFM-h16 \
+  --data "/workspace/upenn/block-stack-world-model/dataset/Scripted Controller Memory 5K" \
+  --run-name privilegeFM-h16-new
+```
+
+This prints the command. Add `--execute` to train after selecting an available
+GPU via `CUDA_VISIBLE_DEVICES`. Extra trainer flags, including `--seed`, may be
+appended. Raw/fine-tuned presets require packed RGB and auxiliary targets, not
+the old frozen-feature dataset. Fresh `smwm_finetune` also needs `--encoder-init`.
+Presets are starting configurations, not claims that every combination was run.
+
+New runs default to `analysis/Privileged FM Policy/<run-name>` or
+`analysis/Encoder FM Policy/<run-name>`. `--out` remains available for legacy
+launchers and resume. Use the original dataset path, architecture, optimizer
+settings, and explicit historical clipping setting for an exact resume.
+The direct trainer defaults to no clipping for historical compatibility; newer
+raw/adapter/fine-tuning presets explicitly enable clipping at 5.
+
+The root model/data/trainer support was brought forward from encoder campaign
+revision `57ded45`, covering frozen, raw, adapter, and fine-tuned checkpoints.
+The prior uncommitted copies matched the archived memory revision exactly;
+those originals remain in the source archive. This branch does not import or
+modify the running campaign supervisors. See `configs/source_import.json`.
+
+## Analysis view and sharing
+
+`analysis/catalog.json` records local sources and renamed display paths.
+Run `python scripts/setup_analysis.py` to recreate links on this machine.
+Family directories are real local directories; individual historical runs are
+symlinks to their existing locations. Treat linked runs as read-only, including
+live runs. The trainer rejects writing directly into those linked run folders.
+New output folders are created locally. No running worktree or original
+analysis folder is renamed. On another machine the local source paths may be
+unavailable; the helper reports and skips them.
+
+See `analysis/README.md` for optional Hugging Face uploads. Git tracks the
+catalog and code, not checkpoint binaries. No remote upload is performed by
+setup or by the default upload preview.

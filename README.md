@@ -25,3 +25,10 @@ For headless GPU rendering on Linux servers, set `export MUJOCO_GL=egl` before r
 
 - **[Simulator Guide (`docs/SIMULATOR.md`)](docs/SIMULATOR.md)** — Local installation, interactive macOS and Linux playback, observation and action spaces, and offscreen rendering.
 - **Task and Data Specification ([`docs/SHARPA_BOX_STACKING.md`](docs/SHARPA_BOX_STACKING.md), [`docs/SHARPA_VARIED_BOXES.md`](docs/SHARPA_VARIED_BOXES.md))** — Scene generation, 25-DoF action semantics, support-graph tower scoring, and per-step contact labels.
+
+## Named flow-policy experiments
+
+Use `privilegeFM` (privileged state) and `encoderFM` (visual features). Legacy
+L2/L4 names remain accepted; simulatorFM/L3 is retained for checkpoint
+compatibility and excluded from active presets. See [the code and launch guide](docs/RUN_CODE_MAP.md)
+and [analysis layout and optional Hugging Face uploads](analysis/README.md).

@@ -1,0 +1,12 @@
+{
+  "commit": "57ded45",
+  "source_worktree": "/home/dev/.codex/worktrees/smwm-encoder-campaign/block-stack-world-model",
+  "files": [
+    "assignment/training/training/distill_policy.py",
+    "assignment/training/training/train_distill.py",
+    "assignment/training/data/distill.py",
+    "assignment/experiments/distill_campaign.py",
+    "tests/test_smwm_encoder_arms.py"
+  ],
+  "reason": "Keep frozen, raw, adapter, and fine-tuned encoder checkpoint schemas available during naming cleanup."
+}

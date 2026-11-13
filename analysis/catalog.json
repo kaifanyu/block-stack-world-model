@@ -1,0 +1,367 @@
+[
+  {
+    "path": "Privileged FM Policy/distill-20261107--privilegeFM-100k-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill-20261107--Privileged FM Policy-100k-seed0",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_memory_20261110--ablations--privilegeFM-h0-phase",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_memory_20261110--ablations--Privileged FM Policy-h0-phase",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_memory_20261110--ablations--privilegeFM-h16-control",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_memory_20261110--ablations--Privileged FM Policy-h16-control",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_memory_20261110--ablations--privilegeFM-h16-phase",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_memory_20261110--ablations--Privileged FM Policy-h16-phase",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_recovery_20261110--seed_replication--privilegeFM-h0-seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_recovery_20261110--seed_replication--Privileged FM Policy-h0-seed1",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_recovery_20261110--seed_replication--privilegeFM-h16-seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_recovery_20261110--seed_replication--Privileged FM Policy-h16-seed1",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_recovery_filtered_20261111--state_round--extra-training-control",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_recovery_filtered_20261111--state_round--extra-training-control",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_recovery_filtered_20261111--state_round--filtered-corrections",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_recovery_filtered_20261111--state_round--filtered-corrections",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--combined_round--combined-f125",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--combined_round--combined-f125",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--combined_round--combined-f25",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--combined_round--combined-f25",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--state_round--extra-training-control",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--state_round--extra-training-control",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--state_round--scaled-corrections",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--state_round--scaled-corrections",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--teacher_arm--extra-training-control",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--teacher_arm--extra-training-control",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--teacher_arm--teacher-all",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--teacher_arm--teacher-all",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--teacher_arm--teacher-success",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--teacher_arm--teacher-success",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/distill_scaled_recovery_20261111--teacher_expansion_v2--scratch_training",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/distill_scaled_recovery_20261111--teacher_expansion_v2--scratch_training",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Privileged FM Policy/scripted_noisy_collection_20261109--ablations--privilegeFM-c1-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/Privileged FM Policy/scripted_noisy_collection_20261109--ablations--Privileged FM Policy-c1-seed0",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Encoder FM Policy/distill-20261107--encoderFM-100k-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/L4/distill-20261107--L4-100k-seed0",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/l4_history_baseline_20261112_r1--training",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/L4/l4_history_baseline_20261112_r1--training",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/scripted_noisy_collection_20261109--ablations--encoderFM-c1-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/L4/scripted_noisy_collection_20261109--ablations--L4-c1-seed0",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/scripted_noisy_collection_20261109--ablations--encoderFM-c3-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/L4/scripted_noisy_collection_20261109--ablations--L4-c3-seed0",
+    "family": "encoderFM"
+  },
+  {
+    "path": "rs-imle/rsimle-adaptation-20261105--critic_rl",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-adaptation-20261105--critic_rl",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-adaptation-20261105--epsilon06",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-adaptation-20261105--epsilon06",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-adaptation-20261105--recovery",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-adaptation-20261105--recovery",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-adaptation-20261105--uniform",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-adaptation-20261105--uniform",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r1_mix50_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r1_mix50_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r1_mix50_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r1_mix50_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r1_onset75_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r1_onset75_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r1_onset75_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r1_onset75_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r1_stage75_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r1_stage75_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r1_stage75_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r1_stage75_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_intervention50_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_intervention50_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_intervention50_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_intervention50_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_intervention75_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_intervention75_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_intervention75_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_intervention75_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_uniform50_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_uniform50_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_uniform50_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_uniform50_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_uniform75_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_uniform75_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-error-recovery-20261106--r2_uniform75_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-error-recovery-20261106--r2_uniform75_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-late-recovery-20261105--control_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-late-recovery-20261105--control_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-late-recovery-20261105--control_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-late-recovery-20261105--control_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-late-recovery-20261105--expanded_seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-late-recovery-20261105--expanded_seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-late-recovery-20261105--expanded_seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-late-recovery-20261105--expanded_seed1",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/rsimle-smwm-c1-sigma04-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/rsimle-smwm-c1-sigma04-seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/scripted_noisy_collection_20261109--ablations--RSIMLE-L3b-c3-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/scripted_noisy_collection_20261109--ablations--RSIMLE-L3b-c3-seed0",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/teacher-ceilings-20261107--image",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/teacher-ceilings-20261107--image",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/teacher-ceilings-20261107--image_proprio",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/teacher-ceilings-20261107--image_proprio",
+    "family": "rs-imle"
+  },
+  {
+    "path": "rs-imle/teacher-ceilings-20261107--state",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/rs-imle/teacher-ceilings-20261107--state",
+    "family": "rs-imle"
+  },
+  {
+    "path": "flow/data-ablation-20261104--A-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--A-seed0",
+    "family": "flow"
+  },
+  {
+    "path": "flow/data-ablation-20261104--A-seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--A-seed1",
+    "family": "flow"
+  },
+  {
+    "path": "flow/data-ablation-20261104--B-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--B-seed0",
+    "family": "flow"
+  },
+  {
+    "path": "flow/data-ablation-20261104--B-seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--B-seed1",
+    "family": "flow"
+  },
+  {
+    "path": "flow/data-ablation-20261104--C-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--C-seed0",
+    "family": "flow"
+  },
+  {
+    "path": "flow/data-ablation-20261104--C-seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--C-seed1",
+    "family": "flow"
+  },
+  {
+    "path": "flow/data-ablation-20261104--D-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--D-seed0",
+    "family": "flow"
+  },
+  {
+    "path": "flow/data-ablation-20261104--D-seed1",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/data-ablation-20261104--D-seed1",
+    "family": "flow"
+  },
+  {
+    "path": "flow/smwm-baseline-seed0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/flow/smwm-baseline-seed0",
+    "family": "flow"
+  },
+  {
+    "path": "imagination/imagination-20261107-gpu0",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/imagination/imagination-20261107-gpu0",
+    "family": "imagination"
+  },
+  {
+    "path": "teacher-ppo/teacher-ceilings-20261107--teacher_ppo",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/teacher-ppo/teacher-ceilings-20261107--teacher_ppo",
+    "family": "teacher-ppo"
+  },
+  {
+    "path": "teacher-ppo/teacher-ppo-restart-20261108--training",
+    "source": "/workspace/upenn/block-stack-world-model/analysis/teacher-ppo/teacher-ppo-restart-20261108--training",
+    "family": "teacher-ppo"
+  },
+  {
+    "path": "Privileged FM Policy/better_scripted_policy_5k_20261112--privilegeFM-h16-late",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L2-h16-late",
+    "family": "privilegeFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-frozen-c3-control",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-frozen-c3-control",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-frozen-c8-control",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-frozen-c8-control",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-raw-c3-aux",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c3-aux",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-raw-c3-aux-late",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c3-aux-late",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-raw-c3-aux-late-seed1",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c3-aux-late-seed1",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-raw-c3-control",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c3-control",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-raw-c8-aux-late",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c8-aux-late",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-raw-c8-aux-late-seed1",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c8-aux-late-seed1",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/better_scripted_policy_5k_20261112--encoderFM-raw-c8-late",
+    "source": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c8-late",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/smwm_encoder_campaign_20261113--encoderFM-adapter_seed0",
+    "source": "/workspace/upenn/artifacts/smwm_encoder_campaign_20261113/wave1/adapter_seed0",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/smwm_encoder_campaign_20261113--encoderFM-raw_seed1",
+    "source": "/workspace/upenn/artifacts/smwm_encoder_campaign_20261113/wave1/raw_seed1",
+    "family": "encoderFM"
+  },
+  {
+    "path": "Encoder FM Policy/smwm_encoder_campaign_20261113--encoderFM-smwm_finetune_seed0",
+    "source": "/workspace/upenn/artifacts/smwm_encoder_campaign_20261113/wave1/smwm_finetune_seed0",
+    "family": "encoderFM"
+  }
+]

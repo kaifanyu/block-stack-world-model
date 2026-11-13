@@ -23,3 +23,7 @@ latents-smwm-c3/
 smwm-c3*/
 df-smwm-c1-sigma04/
 onpolicy-*/
+
+# Runtime analysis views and large policy outputs; catalog/docs stay in Git.
+/analysis/*/
+/exports/
