@@ -51,6 +51,12 @@ checkpoint is required to run them. `SMWM/model.pt` supports latent-data
 preparation and SMWM-initialized training. The original two Hub checkpoint files
 are retained byte-for-byte; their tensors match the evaluated step checkpoints.
 
+![Development success rate versus decision latency for the block-stacking policies](docs/success-vs-latency.png)
+
+The plot's “Visual Policy” uses the original 10-step RGB FM sampler (80.5%);
+the table lists its selected 3-step sampler (84%). The frozen-encoder adapter
+is shown as an unreleased ablation.
+
 ## Task and evaluation
 
 Each control has 22 finger and 3 wrist values. A policy executes one block of
