@@ -1,0 +1,572 @@
+{
+  "checkpoint": "TD-MPC/policy.pt",
+  "protocol": {
+    "agent": "td-mpc",
+    "options": {
+      "mode": "prior",
+      "candidates": 16,
+      "candidate_noise": 1.0,
+      "margin": 0.05,
+      "plan_horizon": null,
+      "score": "model",
+      "mppi_iters": 0,
+      "offset_weights": null,
+      "flow_steps": 10,
+      "noise_scale": 0.0,
+      "execute_blocks": 1
+    },
+    "policy": "/workspace/upenn/artifacts/tdmpc_stage2_rollouts_20261114/stage2-fm-seed0/step-050000.pt",
+    "policy_sha256": "3a38b65ea312eda3f3294b3bc1e6e0222c24d29a949ce5e27d955093e4461628",
+    "split": "val",
+    "scenes": [
+      103002,
+      103026,
+      103032,
+      103039,
+      103084,
+      103099,
+      103105,
+      103122,
+      103125,
+      103141,
+      103154,
+      103180,
+      103184,
+      103185,
+      103190,
+      103203,
+      103208,
+      103222,
+      103224,
+      103240,
+      103242,
+      103252,
+      103258,
+      103262,
+      103278,
+      103285,
+      103311,
+      103315,
+      103324,
+      103326,
+      103329,
+      103348,
+      103354,
+      103355,
+      103356,
+      103367,
+      103378,
+      103392,
+      103397,
+      103400,
+      103405,
+      103415,
+      103419,
+      103420,
+      103424,
+      103455,
+      103466,
+      103485,
+      103503,
+      103507,
+      103541,
+      103547,
+      103556,
+      103561,
+      103567,
+      103569,
+      103585,
+      103592,
+      103593,
+      103610,
+      103613,
+      103625,
+      103633,
+      103639,
+      103644,
+      103667,
+      103668,
+      103677,
+      103679,
+      103694,
+      103722,
+      103731,
+      103734,
+      103738,
+      103748,
+      103765,
+      103792,
+      103795,
+      103812,
+      103817,
+      103818,
+      103819,
+      103829,
+      103848,
+      103857,
+      103859,
+      103861,
+      103863,
+      103874,
+      103881,
+      103886,
+      103900,
+      103916,
+      103924,
+      103934,
+      103945,
+      103959,
+      103960,
+      103966,
+      103968
+    ],
+    "sample_seeds": [
+      0,
+      1
+    ],
+    "horizon": 1795,
+    "renderer": "egl",
+    "egl_device": 0,
+    "mujoco": "3.13.0",
+    "resolution": 128,
+    "target_count": 4,
+    "hold_controls": 10,
+    "settings": {
+      "kind": "distill",
+      "horizon": 1795,
+      "execute_blocks": 1,
+      "ensemble": false,
+      "context": 3,
+      "n_prev_blocks": 8,
+      "phase_input": false,
+      "render": true
+    },
+    "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+    "smoke": false,
+    "source_root": "/home/dev/.codex/worktrees/tdmpc-rollout-stage2/act-jepa-gpu2-20261113"
+  },
+  "summary": {
+    "completed": true,
+    "episodes": 200,
+    "scenes": 100,
+    "successes": 150,
+    "success_rate": 0.75,
+    "success_wilson95": [
+      0.6856590168795417,
+      0.8049183199318249
+    ],
+    "success_scene_cluster95": [
+      0.675,
+      0.82
+    ],
+    "statistics_note": "Episode Wilson intervals are descriptive; scene-cluster bootstrap accounts for repeated samples.",
+    "stage_conditional": [
+      {
+        "block": 1,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 198,
+          "denominator": 200,
+          "rate": 0.99,
+          "wilson95": [
+            0.9642782382838231,
+            0.9972533418664555
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 2,
+        "grasp_given_approach": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 3,
+        "grasp_given_approach": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 192,
+          "denominator": 198,
+          "rate": 0.9696969696969697,
+          "wilson95": [
+            0.9354759842586957,
+            0.9860393530102107
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 181,
+          "denominator": 192,
+          "rate": 0.9427083333333334,
+          "wilson95": [
+            0.9003376167838831,
+            0.9677114726361785
+          ]
+        }
+      },
+      {
+        "block": 4,
+        "grasp_given_approach": {
+          "numerator": 181,
+          "denominator": 188,
+          "rate": 0.9627659574468085,
+          "wilson95": [
+            0.9251501098279549,
+            0.9818488312227918
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 175,
+          "denominator": 181,
+          "rate": 0.9668508287292817,
+          "wilson95": [
+            0.9295764609936417,
+            0.9847205862068937
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 164,
+          "denominator": 175,
+          "rate": 0.9371428571428572,
+          "wilson95": [
+            0.8909638798720758,
+            0.9645424496384507
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 150,
+          "denominator": 164,
+          "rate": 0.9146341463414634,
+          "wilson95": [
+            0.8618190177583562,
+            0.9484694589718745
+          ]
+        }
+      }
+    ],
+    "mean_stage_conditional_score": 0.9802374432931696,
+    "stage_score_missing_denominator": "zero, so unreached late stages cannot improve the ranking",
+    "timeouts": 50,
+    "timeout_rate": 0.25,
+    "ground_falls": 7,
+    "ground_fall_episode_rate": 0.035,
+    "mean_final_count": 3.525,
+    "mean_peak_count": 3.755,
+    "controls_to_success": {
+      "values": [
+        1454,
+        1446,
+        1500,
+        1513,
+        1455,
+        1480,
+        1498,
+        1486,
+        1489,
+        1497,
+        1498,
+        1479,
+        1487,
+        1494,
+        1489,
+        1445,
+        1486,
+        1486,
+        1458,
+        1462,
+        1497,
+        1490,
+        1448,
+        1467,
+        1466,
+        1472,
+        1469,
+        1449,
+        1452,
+        1480,
+        1479,
+        1456,
+        1453,
+        1460,
+        1449,
+        1458,
+        1437,
+        1445,
+        1493,
+        1483,
+        1483,
+        1456,
+        1456,
+        1455,
+        1464,
+        1476,
+        1482,
+        1454,
+        1455,
+        1446,
+        1452,
+        1449,
+        1445,
+        1462,
+        1456,
+        1458,
+        1476,
+        1473,
+        1474,
+        1442,
+        1460,
+        1449,
+        1448,
+        1465,
+        1454,
+        1469,
+        1454,
+        1460,
+        1463,
+        1481,
+        1483,
+        1477,
+        1476,
+        1449,
+        1471,
+        1480,
+        1455,
+        1455,
+        1495,
+        1474,
+        1476,
+        1477,
+        1445,
+        1457,
+        1454,
+        1452,
+        1443,
+        1483,
+        1479,
+        1465,
+        1448,
+        1468,
+        1445,
+        1513,
+        1489,
+        1451,
+        1459,
+        1479,
+        1475,
+        1456,
+        1469,
+        1459,
+        1468,
+        1457,
+        1449,
+        1463,
+        1488,
+        1464,
+        1464,
+        1471,
+        1501,
+        1478,
+        1451,
+        1482,
+        1458,
+        1447,
+        1455,
+        1454,
+        1451,
+        1451,
+        1462,
+        1460,
+        1447,
+        1452,
+        1500,
+        1503,
+        1490,
+        1494,
+        1486,
+        1465,
+        1464,
+        1481,
+        1485,
+        1467,
+        1467,
+        1467,
+        1458,
+        1449,
+        1450,
+        1487,
+        1443,
+        1445,
+        1486,
+        1453,
+        1448,
+        1457,
+        1447,
+        1449,
+        1447,
+        1471
+      ],
+      "median": 1463.5,
+      "p90": 1490.0
+    },
+    "recovery": {
+      "horizon_controls": 1795,
+      "metric_role": "benchmark",
+      "final_blocks": {
+        "mean": 3.525,
+        "scene_cluster95": [
+          3.354875,
+          3.685
+        ],
+        "histogram": [
+          7,
+          5,
+          14,
+          24,
+          150
+        ]
+      },
+      "peak_blocks": {
+        "mean": 3.755,
+        "scene_cluster95": [
+          3.64,
+          3.85
+        ],
+        "histogram": [
+          2,
+          0,
+          6,
+          29,
+          163
+        ]
+      },
+      "first_reach_by_rank": [
+        {
+          "block": 1,
+          "reached": 198,
+          "rate": 0.99,
+          "median_controls": 277.0
+        },
+        {
+          "block": 2,
+          "reached": 198,
+          "rate": 0.99,
+          "median_controls": 656.0
+        },
+        {
+          "block": 3,
+          "reached": 192,
+          "rate": 0.96,
+          "median_controls": 1019.0
+        },
+        {
+          "block": 4,
+          "reached": 163,
+          "rate": 0.815,
+          "median_controls": 1451.0
+        }
+      ],
+      "failed_controls_since_last_new_peak": {
+        "episodes": 50,
+        "median": 763.5,
+        "p90": 1112.3
+      },
+      "net_tower_loss_episodes": 26,
+      "failed_net_tower_loss_episodes": 26,
+      "count_drop_observed_episodes": 200,
+      "count_drop_episodes": 111,
+      "recovered_after_count_drop": 97,
+      "caveat": "Net tower loss is a lower bound on collapse episodes in historical logs; count drops include transient support changes."
+    },
+    "benchmark_horizon": true,
+    "elapsed_seconds": 6094.307086181012,
+    "inference": {
+      "batches": 38610,
+      "requests": 62010,
+      "seconds": 5168.38787620177,
+      "seconds_per_batch": 0.1338613798550057,
+      "mean_batch_size": 1.606060606060606,
+      "planning_decisions": 0,
+      "planning_overrides": 0,
+      "override_rate": null,
+      "device": "cuda:0"
+    },
+    "tower_loss_episodes": 26,
+    "mean_inference_seconds_per_episode": 60.81090362036775,
+    "episodes_run_now": 200
+  },
+  "source_results_sha256": "38e1ed87b1efcd149062433e547b2811534d55cab23f04200b5289e820cc53f9"
+}

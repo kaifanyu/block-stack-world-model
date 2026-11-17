@@ -15,10 +15,28 @@ VARIATION = dict(speed=(.75, 1.25), grasp_offset_m=.004, extra_clearance_m=(0., 
 
 class ScriptedStackPolicy(VariedBoxController):
     def __init__(self, env, mode='nominal', seed=0, recovery=False, variation=None,
-                 max_retries=3, max_object_retries=2, policy_seed=0, sweep=False):
+                 max_retries=3, max_object_retries=2, policy_seed=0, sweep=False,
+                 image_imitable=False, common_open_edge=55, common_grip_edge=None):
         # Intervention parameters follow the scene seed (paired with nominal);
         # plan variation follows the per-episode policy seed.
         super().__init__(env, mode, seed)
+        self.image_imitable = bool(image_imitable)
+        if self.image_imitable:
+            if mode == 'shuffled_order':
+                raise ValueError('Image-imitable ordering cannot be shuffled')
+            # Fixed visible table slots, near row before far row and left before
+            # right, break height ties. Mass/material/footprint never choose the
+            # next object. Quantization keeps within-slot scene jitter irrelevant.
+            self.order = sorted(range(len(env.config.objects)), key=lambda i: (
+                env.config.objects[i].size[2],
+                -round(env.config.objects[i].xy[0], 1),
+                round(env.config.objects[i].xy[1], 1)))
+            self.profiles.order = self.order.copy()
+            profiles = self.profiles.calibration['profiles']
+            common = next(p for p in profiles if p['edge_mm'] == common_open_edge)
+            self.common_open = np.asarray(common['open'], dtype=float)
+            self.common_grip = (next(p for p in profiles if p['edge_mm'] == common_grip_edge)
+                                if common_grip_edge is not None else None)
         self.recovery, self.max_retries, self.max_object_retries = recovery, max_retries, max_object_retries
         self.retries = 0
         self.object_retries = Counter()
@@ -29,7 +47,11 @@ class ScriptedStackPolicy(VariedBoxController):
             ranges = dict(VARIATION, **({} if variation is True else variation))
             self.variation = dict(ranges=ranges, speed=float(self.rng.uniform(*ranges['speed'])), placements=[])
         self.sweep = dict(depth_m=float(self.rng.uniform(.015, .04)), step=None) if sweep else None
-        self.parameters.update(recovery=recovery, plan_variation=self.variation, sweep=self.sweep)
+        self.parameters.update(recovery=recovery, plan_variation=self.variation, sweep=self.sweep,
+            image_imitable=self.image_imitable, order=self.order.copy(),
+            ordering='height_then_visible_table_slot' if self.image_imitable else 'height_then_mass',
+            opening=f'common_{common_open_edge}mm' if self.image_imitable else 'width_calibration',
+            grip=f'common_{common_grip_edge}mm' if self.image_imitable and common_grip_edge is not None else 'width_and_material_calibration')
 
     def transition(self, env, phase, **extra):
         if phase == 'stop' and self.recovery and self.recover(env):
@@ -64,6 +86,14 @@ class ScriptedStackPolicy(VariedBoxController):
 
     def select(self, env):
         super().select(env)
+        if not self.done and self.image_imitable:
+            self.open = self.common_open.copy()
+            if self.common_grip is not None:
+                self.center = np.asarray(self.common_grip['grasp_center_local'], dtype=float).copy()
+                self.closed = np.asarray(self.common_grip['closed'], dtype=float).copy()
+                for j,name in enumerate(env.joint_names[3:]):
+                    if name.endswith(('PIP','DIP','IP','MCP_FE')):self.closed[j]+=.3
+                self.closed=np.clip(self.closed,env.low[3:],env.high[3:])
         if not self.done and self.sweep and self.sweep['step'] is None and self.cursor >= 2:
             # Path failure: carry the object below the tower top so it strikes the tower once.
             self.clearance = self.support_height-self.sweep['depth_m']

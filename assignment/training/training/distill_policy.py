@@ -265,7 +265,7 @@ class DistillPolicy(DFPolicy):
             tokens.append(self.phase_in(self.phase_targets(inputs, len(obs)))[:, None])
         return torch.cat(tokens, 1)
 
-    def forward(self, inputs, x, t, generator=None, return_phase=False):
+    def forward(self, inputs, x, t, generator=None, return_phase=False, step=None):
         if x.ndim != 3 or x.shape[-1] != self.cfg.action_dim or not 1 <= x.shape[1] <= self.cfg.horizon:
             raise ValueError('Invalid noisy action shape')
         if t.shape != x.shape[:2]:
@@ -273,7 +273,13 @@ class DistillPolicy(DFPolicy):
         prefix = self.prefix(inputs, generator)
         c, h = prefix.shape[1], x.shape[1]
         tokens = torch.cat((prefix, self.act_in(x)), 1) + self.pos[:, :c+h]
-        cond = torch.cat((self.obs_cond.expand(len(x), c, -1), self.t_embed(timestep_embedding(t, 256))), 1)
+        action_cond = self.t_embed(timestep_embedding(t, 256))
+        if step is not None:
+            # Shortcut models add the integration step size to the time conditioning.
+            if not hasattr(self, 'step_embed') or step.shape != t.shape:
+                raise ValueError('Step-size conditioning needs a shortcut policy and per-token steps')
+            action_cond = action_cond + self.step_embed(timestep_embedding(step, 256))
+        cond = torch.cat((self.obs_cond.expand(len(x), c, -1), action_cond), 1)
         for block in self.blocks:
             tokens = block(tokens, cond, self.mask[:c+h, :c+h])
         shift, scale = self.out_ada(cond[:, c:]).chunk(2, -1)
@@ -331,10 +337,21 @@ class DistillPolicy(DFPolicy):
         return result
 
     @torch.no_grad()
-    def sample(self, inputs, steps=None, n_steps=10, lag=0, generator=None, noise=None):
+    def sample(self, inputs, steps=None, n_steps=10, lag=0, generator=None, noise=None,
+               solver='euler', time_shift=1.):
+        """Integrate from noise (t=1) to actions (t=0).
+
+        solver='midpoint' uses two network passes per step. time_shift != 1 warps the
+        uniform grid u by t = s*u/(1+(s-1)*u): s > 1 spends more steps near the noise
+        end, s < 1 near the action end. The defaults are the trained uniform Euler sampler.
+        """
         h = self.cfg.horizon if steps is None else steps
         if not 1 <= h <= self.cfg.horizon or n_steps < 1 or lag < 0:
             raise ValueError('Invalid sampling horizon or integration schedule')
+        if solver not in ('euler', 'midpoint') or not (math.isfinite(time_shift) and time_shift > 0):
+            raise ValueError('Unknown solver or invalid time shift')
+        if lag and (solver != 'euler' or time_shift != 1):
+            raise ValueError('Diffusion lag supports the uniform Euler sampler only')
         if self.cfg.vision_mode != 'frozen':
             inputs = dict(inputs, _visual_z=self.visual_features(clip_normalized_inputs(inputs, self.cfg.input_clip)))
         obs = inputs['priv'] if self.cfg.input_mode == 'priv' else self.visual_features(inputs)
@@ -345,12 +362,65 @@ class DistillPolicy(DFPolicy):
             if tuple(noise.shape) != shape or noise.device != obs.device:
                 raise ValueError('Supplied noise must match requested output shape and device')
             x = noise.clone()
+        if solver != 'euler' or time_shift != 1:
+            u = torch.linspace(1, 0, n_steps+1, device=obs.device)
+            grid = time_shift*u/(1+(time_shift-1)*u)
+            for now, nxt in zip(grid[:-1], grid[1:]):
+                velocity = self(inputs, x, now.expand(len(obs), h)).float()
+                if solver == 'midpoint':
+                    middle = (now+nxt)/2
+                    velocity = self(inputs, x+(middle-now)*velocity, middle.expand(len(obs), h)).float()
+                x = x+(nxt-now)*velocity
+            return x
         offset = torch.arange(h, device=obs.device)*lag
         for s in range(n_steps+(h-1)*lag):
             now = (1-(s-offset)/n_steps).clamp(0, 1)
             nxt = (1-(s+1-offset)/n_steps).clamp(0, 1)
             velocity = self(inputs, x, now.expand(len(obs), h)).float()
             x = x+(nxt-now)[None, :, None]*velocity
+        return x
+
+
+class ShortcutDistillPolicy(DistillPolicy):
+    """Flow policy conditioned on the integration step size (Frans et al., 2024).
+
+    The network predicts the average velocity over a step of size d, so a few large
+    steps follow the same path as many small ones. step=0 is ordinary flow matching.
+    The step embedding's output layer starts at zero, so a warm start from a flow
+    checkpoint initially reproduces that checkpoint at every step count.
+    """
+    policy_kind = 'shortcut_flow'
+
+    def __init__(self, cfg):
+        super().__init__(cfg)
+        d = cfg.dim
+        self.step_embed = nn.Sequential(nn.Linear(256, d), nn.SiLU(), nn.Linear(d, d))
+        nn.init.zeros_(self.step_embed[-1].weight)
+        nn.init.zeros_(self.step_embed[-1].bias)
+
+    @torch.no_grad()
+    def sample(self, inputs, steps=None, n_steps=10, lag=0, generator=None, noise=None,
+               solver='euler', time_shift=1.):
+        h = self.cfg.horizon if steps is None else steps
+        if not 1 <= h <= self.cfg.horizon or n_steps < 1:
+            raise ValueError('Invalid sampling horizon or integration schedule')
+        if lag or solver != 'euler' or time_shift != 1:
+            raise ValueError('Shortcut sampling uses uniform steps of size 1/n_steps')
+        if self.cfg.vision_mode != 'frozen':
+            inputs = dict(inputs, _visual_z=self.visual_features(clip_normalized_inputs(inputs, self.cfg.input_clip)))
+        obs = inputs['priv'] if self.cfg.input_mode == 'priv' else self.visual_features(inputs)
+        shape = (len(obs), h, self.cfg.action_dim)
+        if noise is None:
+            x = torch.randn(shape, device=obs.device, generator=generator)
+        else:
+            if tuple(noise.shape) != shape or noise.device != obs.device:
+                raise ValueError('Supplied noise must match requested output shape and device')
+            x = noise.clone()
+        d = 1/n_steps
+        size = torch.full((len(obs), h), d, device=obs.device)
+        for s in range(n_steps):
+            t = torch.full((len(obs), h), 1-s*d, device=obs.device)
+            x = x-d*self(inputs, x, t, step=size).float()
         return x
 
 
@@ -386,9 +456,10 @@ def save_distill_policy(path, model, info):
 
 def load_distill_policy(path, device='cpu'):
     checkpoint = torch.load(path, map_location=device, weights_only=False)
-    if checkpoint.get('policy_kind') != DistillPolicy.policy_kind:
-        raise ValueError('Expected a distill_flow policy checkpoint')
-    model = DistillPolicy(DistillPolicyConfig(**checkpoint['config'])).to(device)
+    kinds = {cls.policy_kind: cls for cls in (DistillPolicy, ShortcutDistillPolicy)}
+    if checkpoint.get('policy_kind') not in kinds:
+        raise ValueError('Expected a distill_flow or shortcut_flow policy checkpoint')
+    model = kinds[checkpoint['policy_kind']](DistillPolicyConfig(**checkpoint['config'])).to(device)
     model.load_state_dict(checkpoint['state_dict'], strict=True)
     info = dict(checkpoint['info'], input_clip=model.cfg.input_clip)
     return model.eval(), info

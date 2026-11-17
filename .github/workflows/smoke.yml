@@ -26,7 +26,9 @@ jobs:
         run: bash scripts/setup.sh
       - name: Simulator and assignment unit tests
         if: matrix.suite == 'tests'
-        run: .venv/bin/python -m unittest discover -s tests -v
+        run: |
+          .venv/bin/python -m pip install pytest
+          .venv/bin/python -m pytest -q tests
       - name: Assignment stage entry points
         if: matrix.suite == 'tests'
         run: |

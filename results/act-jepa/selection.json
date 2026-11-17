@@ -1,0 +1,579 @@
+{
+  "checkpoint": "ACT-JEPA/policy.pt",
+  "protocol": {
+    "agent": "act-jepa",
+    "options": {
+      "mode": "policy",
+      "candidates": 16,
+      "candidate_noise": 1.0,
+      "margin": 0.05,
+      "plan_horizon": null,
+      "score": "model",
+      "mppi_iters": 0,
+      "offset_weights": null,
+      "flow_steps": 10,
+      "noise_scale": 0.0,
+      "execute_blocks": 1
+    },
+    "policy": "/workspace/upenn/artifacts/act_jepa_gpu2_20261113/training/smwm-seed0/step-100000.pt",
+    "policy_sha256": "5557e09dbf27bb0677c5ff945b41dd5b7178cdb9cd9cca3828d52c5a38249e99",
+    "split": "val",
+    "scenes": [
+      103002,
+      103026,
+      103032,
+      103039,
+      103084,
+      103099,
+      103105,
+      103122,
+      103125,
+      103141,
+      103154,
+      103180,
+      103184,
+      103185,
+      103190,
+      103203,
+      103208,
+      103222,
+      103224,
+      103240,
+      103242,
+      103252,
+      103258,
+      103262,
+      103278,
+      103285,
+      103311,
+      103315,
+      103324,
+      103326,
+      103329,
+      103348,
+      103354,
+      103355,
+      103356,
+      103367,
+      103378,
+      103392,
+      103397,
+      103400,
+      103405,
+      103415,
+      103419,
+      103420,
+      103424,
+      103455,
+      103466,
+      103485,
+      103503,
+      103507,
+      103541,
+      103547,
+      103556,
+      103561,
+      103567,
+      103569,
+      103585,
+      103592,
+      103593,
+      103610,
+      103613,
+      103625,
+      103633,
+      103639,
+      103644,
+      103667,
+      103668,
+      103677,
+      103679,
+      103694,
+      103722,
+      103731,
+      103734,
+      103738,
+      103748,
+      103765,
+      103792,
+      103795,
+      103812,
+      103817,
+      103818,
+      103819,
+      103829,
+      103848,
+      103857,
+      103859,
+      103861,
+      103863,
+      103874,
+      103881,
+      103886,
+      103900,
+      103916,
+      103924,
+      103934,
+      103945,
+      103959,
+      103960,
+      103966,
+      103968
+    ],
+    "sample_seeds": [
+      0,
+      1
+    ],
+    "horizon": 1795,
+    "renderer": "egl",
+    "egl_device": 2,
+    "mujoco": "3.13.0",
+    "resolution": 128,
+    "target_count": 4,
+    "hold_controls": 10,
+    "settings": {
+      "kind": "distill",
+      "horizon": 1795,
+      "execute_blocks": 1,
+      "ensemble": false,
+      "context": 3,
+      "n_prev_blocks": 8,
+      "phase_input": false,
+      "render": true
+    },
+    "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+    "smoke": false,
+    "source_root": "/workspace/upenn/worktrees/act-jepa-gpu2-20261113"
+  },
+  "summary": {
+    "completed": true,
+    "episodes": 200,
+    "scenes": 100,
+    "successes": 157,
+    "success_rate": 0.785,
+    "success_wilson95": [
+      0.7229769265100339,
+      0.8362812374549242
+    ],
+    "success_scene_cluster95": [
+      0.72,
+      0.85
+    ],
+    "statistics_note": "Episode Wilson intervals are descriptive; scene-cluster bootstrap accounts for repeated samples.",
+    "stage_conditional": [
+      {
+        "block": 1,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 2,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 3,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 198,
+          "denominator": 200,
+          "rate": 0.99,
+          "wilson95": [
+            0.9642782382838231,
+            0.9972533418664555
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 191,
+          "denominator": 198,
+          "rate": 0.9646464646464646,
+          "wilson95": [
+            0.928835437689633,
+            0.9827711325118657
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 184,
+          "denominator": 191,
+          "rate": 0.9633507853403142,
+          "wilson95": [
+            0.9262951642198484,
+            0.9821357265737122
+          ]
+        }
+      },
+      {
+        "block": 4,
+        "grasp_given_approach": {
+          "numerator": 183,
+          "denominator": 187,
+          "rate": 0.9786096256684492,
+          "wilson95": [
+            0.9463003194787494,
+            0.9916510098924025
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 183,
+          "denominator": 183,
+          "rate": 1.0,
+          "wilson95": [
+            0.9794400084170792,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 178,
+          "denominator": 183,
+          "rate": 0.9726775956284153,
+          "wilson95": [
+            0.93764444316215,
+            0.9882742533195696
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 157,
+          "denominator": 178,
+          "rate": 0.8820224719101124,
+          "wilson95": [
+            0.8263768535009196,
+            0.9215273971689105
+          ]
+        }
+      }
+    ],
+    "mean_stage_conditional_score": 0.9844566839496098,
+    "stage_score_missing_denominator": "zero, so unreached late stages cannot improve the ranking",
+    "timeouts": 43,
+    "timeout_rate": 0.215,
+    "ground_falls": 2,
+    "ground_fall_episode_rate": 0.01,
+    "mean_final_count": 3.55,
+    "mean_peak_count": 3.845,
+    "controls_to_success": {
+      "values": [
+        1502,
+        1500,
+        1449,
+        1446,
+        1488,
+        1482,
+        1503,
+        1501,
+        1502,
+        1481,
+        1484,
+        1481,
+        1487,
+        1448,
+        1451,
+        1487,
+        1487,
+        1456,
+        1456,
+        1475,
+        1467,
+        1505,
+        1462,
+        1462,
+        1454,
+        1469,
+        1445,
+        1443,
+        1475,
+        1452,
+        1452,
+        1457,
+        1455,
+        1451,
+        1441,
+        1446,
+        1478,
+        1480,
+        1480,
+        1479,
+        1455,
+        1455,
+        1445,
+        1445,
+        1502,
+        1413,
+        1386,
+        1445,
+        1463,
+        1456,
+        1462,
+        1464,
+        1453,
+        1453,
+        1454,
+        1454,
+        1448,
+        1467,
+        1461,
+        1471,
+        1447,
+        1464,
+        1450,
+        1452,
+        1448,
+        1453,
+        1463,
+        1449,
+        1458,
+        1457,
+        1478,
+        1497,
+        1499,
+        1500,
+        1455,
+        1457,
+        1483,
+        1495,
+        1459,
+        1453,
+        1477,
+        1475,
+        1465,
+        1470,
+        1467,
+        1459,
+        1458,
+        1455,
+        1449,
+        1450,
+        1452,
+        1499,
+        1500,
+        1454,
+        1453,
+        1451,
+        1452,
+        1500,
+        1502,
+        1483,
+        1484,
+        1441,
+        1441,
+        1449,
+        1444,
+        1455,
+        1467,
+        1467,
+        1455,
+        1455,
+        1482,
+        1475,
+        1454,
+        1455,
+        1454,
+        1446,
+        1448,
+        1455,
+        1468,
+        1444,
+        1480,
+        1481,
+        1458,
+        1481,
+        1454,
+        1448,
+        1461,
+        1462,
+        1447,
+        1457,
+        1452,
+        1451,
+        1507,
+        1479,
+        1477,
+        1483,
+        1485,
+        1469,
+        1470,
+        1470,
+        1480,
+        1460,
+        1462,
+        1458,
+        1455,
+        1461,
+        1457,
+        1470,
+        1467,
+        1466,
+        1449,
+        1484,
+        1484,
+        1454,
+        1451,
+        1451,
+        1471
+      ],
+      "median": 1459.0,
+      "p90": 1490.8
+    },
+    "recovery": {
+      "horizon_controls": 1795,
+      "metric_role": "benchmark",
+      "final_blocks": {
+        "mean": 3.55,
+        "scene_cluster95": [
+          3.4,
+          3.69
+        ],
+        "histogram": [
+          1,
+          12,
+          20,
+          10,
+          157
+        ]
+      },
+      "peak_blocks": {
+        "mean": 3.845,
+        "scene_cluster95": [
+          3.765,
+          3.91
+        ],
+        "histogram": [
+          0,
+          0,
+          9,
+          13,
+          178
+        ]
+      },
+      "first_reach_by_rank": [
+        {
+          "block": 1,
+          "reached": 200,
+          "rate": 1.0,
+          "median_controls": 277.0
+        },
+        {
+          "block": 2,
+          "reached": 200,
+          "rate": 1.0,
+          "median_controls": 654.5
+        },
+        {
+          "block": 3,
+          "reached": 191,
+          "rate": 0.955,
+          "median_controls": 1017.0
+        },
+        {
+          "block": 4,
+          "reached": 178,
+          "rate": 0.89,
+          "median_controls": 1448.0
+        }
+      ],
+      "failed_controls_since_last_new_peak": {
+        "episodes": 43,
+        "median": 742.0,
+        "p90": 1116.8
+      },
+      "net_tower_loss_episodes": 34,
+      "failed_net_tower_loss_episodes": 34,
+      "count_drop_observed_episodes": 200,
+      "count_drop_episodes": 106,
+      "recovered_after_count_drop": 97,
+      "caveat": "Net tower loss is a lower bound on collapse episodes in historical logs; count drops include transient support changes."
+    },
+    "benchmark_horizon": true,
+    "elapsed_seconds": 5958.73720409011,
+    "inference": {
+      "batches": 36088,
+      "requests": 61487,
+      "seconds": 5119.689213489415,
+      "seconds_per_batch": 0.14186680374333338,
+      "mean_batch_size": 1.7038073597871868,
+      "planning_decisions": 0,
+      "planning_overrides": 0,
+      "override_rate": null,
+      "device": "cuda:0"
+    },
+    "tower_loss_episodes": 34,
+    "mean_inference_seconds_per_episode": 64.97023043212539,
+    "episodes_run_now": 200
+  },
+  "source_results_sha256": "0a19da12093aba4f65b7fcce34b51a9b4216e3a677740ba7c80074b03b7f5776"
+}

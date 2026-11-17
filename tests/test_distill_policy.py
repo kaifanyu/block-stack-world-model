@@ -161,10 +161,11 @@ class DistillPolicyTests(unittest.TestCase):
             path = Path(directory)/'old.pt'
             save_distill_policy(path, model, {})
             saved = torch.load(path, weights_only=False)
-            for field in ('use_phase', 'phase_classes', 'phase_loss_weight'):
+            for field in ('use_phase', 'phase_classes', 'phase_loss_weight', 'input_clip'):
                 saved['config'].pop(field)
             torch.save(saved, path)
             restored, _ = load_distill_policy(path)
+            self.assertIsNone(restored.cfg.input_clip)
             torch.testing.assert_close(model.sample(inputs, steps=1, noise=noise),
                                        restored.sample(inputs, steps=1, noise=noise), rtol=0, atol=0)
 
@@ -195,6 +196,44 @@ class DistillPolicyTests(unittest.TestCase):
         torch.testing.assert_close(normalized['z']*2.3+.7, inputs['z'])
         self.assertEqual(int(torch.count_nonzero(normalized['prev_actions'][:, 0])), 0)
         torch.testing.assert_close(normalized['prev_actions'][:, 1]*.6+.2, inputs['prev_actions'][:, 1])
+
+    def test_clipping_applies_to_conditioning_and_survives_checkpoint(self):
+        from assignment.training.data.distill import clip_normalized_inputs
+        inputs = fixture()
+        for key in ('z', 'priv', 'proprio', 'targets', 'prev_actions'):
+            inputs[key] *= 1000
+        inputs['prev_actions'][:, 0] = float('nan')
+        bounded = clip_normalized_inputs(inputs, 5.)
+        for key in ('z', 'priv', 'proprio', 'targets', 'prev_actions'):
+            self.assertLessEqual(float(bounded[key].abs().max()), 5.)
+        self.assertEqual(int(torch.count_nonzero(bounded['prev_actions'][:, 0])), 0)
+        self.assertIs(bounded['prev_mask'], inputs['prev_mask'])
+        model = tiny(input_clip=5.).eval()
+        torch.testing.assert_close(model.prefix(inputs), model.prefix(bounded), rtol=0, atol=0)
+        # Flow action/noise tokens are not conditioning and must not be clipped.
+        seen = []
+        hook = model.act_in.register_forward_pre_hook(lambda module, args: seen.append(args[0].detach().clone()))
+        actions = torch.full((3, 4, 125), 20.)
+        model(inputs, actions, torch.zeros(3, 4))
+        hook.remove()
+        torch.testing.assert_close(seen[-1], actions, rtol=0, atol=0)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)/'policy.pt'
+            save_distill_policy(path, model, {})
+            restored, info = load_distill_policy(path)
+            self.assertEqual(restored.cfg.input_clip, 5.)
+            self.assertEqual(info['input_clip'], 5.)
+            torch.testing.assert_close(restored.prefix(inputs), model.prefix(inputs), rtol=0, atol=0)
+
+    def test_normalization_override_and_invalid_clip(self):
+        inputs = dict(priv=torch.full((2, 190), 1000.))
+        info = dict(normalization=dict(priv=dict(mean=[0.]*190, std=[1.]*190)), input_clip=5.)
+        self.assertEqual(float(normalize_inputs(inputs, info)['priv'].max()), 5.)
+        self.assertEqual(float(normalize_inputs(inputs, info, 0.)['priv'].max()), 1000.)
+        self.assertEqual(float(normalize_inputs(inputs, info, 3.)['priv'].max()), 3.)
+        for value in (-1., float('inf'), float('nan')):
+            with self.assertRaises(ValueError):
+                tiny(input_clip=value)
 
     def test_exact_resume_matches_uninterrupted_training(self):
         torch.manual_seed(51)
@@ -234,6 +273,77 @@ class DistillPolicyTests(unittest.TestCase):
             torch.testing.assert_close(torch.rand(5, generator=full[4]), torch.rand(5, generator=resumed[4]), rtol=0, atol=0)
             with self.assertRaises(ValueError):
                 restore_training(path, *resumed, dict(steps=7), 'cpu')
+
+
+class FewPassSamplerTests(unittest.TestCase):
+    """Solver options and the shortcut policy used by the FM speed-up campaign."""
+
+    def setUp(self):
+        torch.manual_seed(0)
+        self.model = tiny('L3b').eval()
+        for block in self.model.blocks:
+            torch.nn.init.normal_(block.ada[-1].weight, std=.05)
+        torch.nn.init.normal_(self.model.out.weight, std=.05)
+        self.inputs, self.noise = fixture(), torch.randn(3, 2, 125)
+
+    def test_default_options_are_the_uniform_euler_loop(self):
+        model, x = self.model, self.noise.clone()
+        for s in range(5):
+            t = torch.full((3, 2), 1-s/5)
+            x = x-model(self.inputs, x, t)/5
+        default = model.sample(self.inputs, steps=2, n_steps=5, noise=self.noise)
+        explicit = model.sample(self.inputs, steps=2, n_steps=5, noise=self.noise, solver='euler', time_shift=1.)
+        torch.testing.assert_close(default, x)
+        self.assertTrue(torch.equal(default, explicit))
+
+    def test_midpoint_and_shift_follow_their_grids(self):
+        model = self.model
+        v = lambda x, t: model(self.inputs, x, torch.full((3, 2), t))
+        half = self.noise+(.5-1)*v(self.noise, 1.)
+        expected = self.noise+(0-1)*v(half, .5)
+        torch.testing.assert_close(model.sample(self.inputs, steps=2, n_steps=1, noise=self.noise, solver='midpoint'),
+                                   expected)
+        # Shift s maps u=1/2 to s/(1+s): with s=3 the single interior node is t=0.75.
+        x = self.noise+(.75-1)*v(self.noise, 1.)
+        x = x+(0-.75)*v(x, .75)
+        torch.testing.assert_close(model.sample(self.inputs, steps=2, n_steps=2, noise=self.noise, time_shift=3.), x)
+        with self.assertRaises(ValueError):
+            model.sample(self.inputs, steps=2, n_steps=2, noise=self.noise, solver='rk4')
+        with self.assertRaises(ValueError):
+            model.sample(self.inputs, steps=2, n_steps=2, noise=self.noise, lag=1, time_shift=2.)
+
+    def test_shortcut_warm_start_reproduces_flow_and_round_trips(self):
+        from assignment.training.training.distill_policy import ShortcutDistillPolicy
+        student = ShortcutDistillPolicy(self.model.cfg).eval()
+        missing, unexpected = student.load_state_dict(self.model.state_dict(), strict=False)
+        self.assertEqual(unexpected, [])
+        self.assertTrue(missing and all(name.startswith('step_embed.') for name in missing))
+        for n in (1, 2, 4):
+            torch.testing.assert_close(student.sample(self.inputs, steps=2, n_steps=n, noise=self.noise),
+                                       self.model.sample(self.inputs, steps=2, n_steps=n, noise=self.noise))
+        torch.nn.init.normal_(student.step_embed[-1].weight, std=.1)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp)/'shortcut.pt'
+            save_distill_policy(path, student, dict(note='test'))
+            loaded, _ = load_distill_policy(path)
+        self.assertIsInstance(loaded, ShortcutDistillPolicy)
+        torch.testing.assert_close(loaded.sample(self.inputs, steps=2, n_steps=2, noise=self.noise),
+                                   student.sample(self.inputs, steps=2, n_steps=2, noise=self.noise))
+        with self.assertRaises(ValueError):
+            self.model(self.inputs, self.noise, torch.ones(3, 2), step=torch.ones(3, 2))
+
+    @unittest.skipUnless(torch.cuda.is_available(), 'needs CUDA')
+    def test_graphed_solver_options_match_eager(self):
+        from assignment.training.training.cuda_graph import CudaGraphSampler
+        model = self.model.cuda().requires_grad_(False)
+        inputs = {k: v.cuda() for k, v in self.inputs.items()}
+        noise = self.noise.cuda()
+        graph = CudaGraphSampler(model, 'cuda')
+        for options in (dict(solver='midpoint'), dict(time_shift=3.), {}):
+            with torch.inference_mode(), torch.autocast('cuda', torch.bfloat16):
+                eager = model.sample(inputs, steps=2, n_steps=2, noise=noise, **options)
+                self.assertTrue(torch.equal(graph.sample(inputs, 2, 2, noise, **options), eager))
+        self.assertEqual(len(graph.graphs), 3)
 
 
 if __name__ == '__main__':

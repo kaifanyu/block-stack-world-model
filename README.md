@@ -1,88 +1,171 @@
-# Block Stacking with SMWM
+# Block Stack World Model
 
-**Task:** control a simulated hand to pick up four boxes and build a stable tower.
-We compare simulator-state policies with camera-only policies.
+Control a simulated dexterous hand to stack four boxes into a stable tower. This
+release builds on `smwm-clean` and includes flow-matching (FM), ACT-JEPA-style,
+TD-MPC2-style, and RS-IMLE policies, with training and evaluation in one checkout.
 
-<p align="center">
-  <img src="docs/env_demo.gif" width="480" alt="The hand stacking boxes, shown from two cameras" />
-</p>
+<p align="center"><img src="docs/env_demo.gif" width="480" alt="Four-box stacking from two cameras" /></p>
 
-## Setup
+**Recommended RGB policy: RS-IMLE + distillation, 176/200 development successes.**
+All six policies and the shared SMWM encoder/predictor are in
+[the Hugging Face model repository](https://huggingface.co/thejoyestboy/block-stack-smwm-checkpoints).
 
-- **Actions:** 22 finger controls and 3 wrist controls—25 values per control step. These change the controller targets.
-- **Timing:** one control step lasts 0.1 seconds. The policy executes five controls together, then observes again: one action block covers 0.5 seconds.
-- **Images:** two 128 × 128 RGB camera views, placed side by side into one 128 × 256 image.
-- **History:** “3 frames” means the current camera pair and the previous two pairs. “H16” means the previous 16 executed action blocks.
+## Quick start
 
-The policy predicts 16 future action blocks, executes the first, observes again, and repeats.
+Python 3.11+; CUDA is recommended for policy evaluation. Run from this repository:
 
-## Datasets
+```bash
+bash scripts/setup.sh
+source .venv/bin/activate
+python scripts/download_checkpoints.py --list
+python scripts/download_checkpoints.py rs-imle
+python scripts/evaluate_policy.py rs-imle --out outputs/rs-imle \
+  --device cuda:0 --egl-device 0 --workers 6
+```
 
-Episodes store observations, actions, robot state, and outcomes. Clean teacher actions are separate from noisy executed actions.
+The evaluator selects the checkpoint's recorded inference settings. For a short
+installation check, add `--smoke --scenes 1 --horizon 20 --workers 1`; smoke runs
+use training scenes and are not performance measurements. Use `--dry-run` to see
+the command. Omit model IDs when downloading to fetch all seven checkpoints
+(about 1.25 GB). Downloads verify size and SHA-256 against [checkpoints.json](checkpoints.json).
+An optional `--revision` pins the Hugging Face commit.
 
-| Dataset | What it is used for |
-| --- | --- |
-| **BC Policy 20K** | Behavior-cloning teacher rollouts for encoder and world-model training. |
-| **Privileged BC Policy 18K** | BC rollouts with simulator state and diagnostic labels for the earlier privileged policy. |
-| **Scripted Controller 5K** | Successful scripted demonstrations with action noise, used for the original comparisons. |
-| **Scripted Controller Memory 5K** | Scripted data prepared with action history and teacher-phase labels. |
-| **Modified Scripted Controller 5K** | Simpler grasp opening and object ordering; keeps failures too. Includes 100 separate validation episodes. Used for both published policies. |
+## Every included checkpoint
 
-“Privileged state” includes robot position, object poses, contacts, and tower state. The RGB policy does not receive it at inference.
+Paths below are relative to the Hugging Face repo and the local `checkpoints/`
+directory. These are inference checkpoints with model configuration and
+normalization; optimizer/replay state is not included.
 
-## What SMWM learns
-
-SMWM learns a visual representation and how actions change it:
-
-1. The **encoder** turns the two camera images into visual features.
-2. The **predictor** uses recent features and actions to predict the next features.
-3. An **inverse model** learns which action happened between two observations.
-
-The policies below use SMWM’s **encoder**, when specified—not its dynamics predictor or planning.
-
-## Action policies
-
-Both policies imitate teacher actions using **flow matching**: learning to turn starting noise into an action sequence.
-
-| Policy | Inputs | Main training changes | Validation success |
+| Model ID | Checkpoint | Training updates | Selected evaluation |
 | --- | --- | --- | --- |
-| **Privilege FM Policy** (formerly L2) | Current simulator state + 16 past action blocks | Modified scripted data; sample late placement phases three times as often | **160/200 — 80%** |
-| **RGB FM Policy** (formerly L4) | Two cameras across 3 observation times + 8 past action blocks | Train a CNN from scratch; add auxiliary supervision | **161/200 — 80.5%**, with zero sampling noise |
+| `rs-imle` | `RS-IMLE/policy.pt` | 60K after RGB FM initialization | **176/200 (88%)**; 1 pass, noise 0 |
+| `rgb-fm` | `RGB FM Policy/policy.pt` | 100K | **168/200 (84%)**; 3 Euler steps, time shift 2, noise 0 |
+| `privilege-fm` | `Privilege FM Policy/policy.pt` | 100K | **160/200 (80%)**; 10 Euler steps, noise 1 |
+| `act-jepa` | `ACT-JEPA/policy.pt` | 100K | **157/200 (78.5%)**; action head, 10 steps, noise 0 |
+| `td-mpc` | `TD-MPC/policy.pt` | 100K stage 1 + 50K stage 2 | **150/200 (75%)**; policy prior, 10 steps, noise 0 |
+| `smwm-fm` | `SMWM FM Policy/policy.pt` | 100K after encoder initialization | **145/200 (72.5%)**; 10 steps, noise 0 |
+| `smwm` | `SMWM/model.pt` | 145K pretraining + 60K predictor fine-tuning | Shared visual encoder/dynamics; not an action policy |
 
-**Auxiliary supervision** asks the visual features to also predict box size, material, and pose. Its training loss has weight 0.1. The labels are used only during training.
+All six action policies contain their inference encoders when needed; no other
+checkpoint is required to run them. `SMWM/model.pt` supports latent-data
+preparation and SMWM-initialized training. The original two Hub checkpoint files
+are retained byte-for-byte; their tensors match the evaluated step checkpoints.
 
-**Late-phase sampling** gives extra attention to lowering, releasing, and retreating during placement of the third and fourth boxes.
+## Task and evaluation
 
-The original scripted-data L2 scored **26.5%**; H16 scored **42.5%**. The 80% run also changes the dataset and sampling, so history alone does not explain the improvement.
+Each control has 22 finger and 3 wrist values. A policy executes one block of
+five controls (0.5 seconds), then observes again. Visual policies receive two
+128 × 128 cameras tiled into a 128 × 256 image, at three observation times,
+plus eight past executed blocks. The privileged policy receives simulator state
+and 16 past blocks. Visual policies do not receive simulator state at inference.
 
-## Important RGB / L4 ablations
+The development panel is **100 validation scenes × two sampling seeds**, with
+1,795 controls per episode, MuJoCo 3.13.0, EGL, and a four-box tower held
+hands-free for ten controls. The exact panel is in
+[configs/development_panel.json](configs/development_panel.json); its historical
+policy fields describe panel provenance, not the policy to run.
 
-| Experiment | What changes? | What we know |
-| --- | --- | --- |
-| **Original frozen-encoder baseline** | One observation through the frozen SMWM encoder; no action history | **0/200** on the original scripted-data evaluation. |
-| **Frozen encoder with history** | On the modified data, use 3 or 8 observation times and 8 past action blocks | **39%** with 3 frames; **31.5%** with 8. More frames did not help this pair. |
-| **RGB control vs auxiliary** | Train the CNN from scratch. Compare action loss alone against action loss + auxiliary loss, with the same 3-frame/8-action history | Auxiliary: **80.5% at zero noise**. This alone does not isolate the auxiliary loss’s benefit. |
-| **Auxiliary + late sampling** | Also sample late placement phases more often | Tests final-placement training. No completed success score reported here. |
-| **Frozen SMWM + adapter** | Keep SMWM fixed; train a small network to adapt its features, plus the action policy | In progress as of November 13, 2026. |
-| **Fine-tuned SMWM** | Start from SMWM's pretrained encoder and update it together with the action policy | In progress as of November 13, 2026. |
+“Best” means the best **completed development evaluation** among the audited
+candidates for each included family, including sampler choices. These are not
+independent final-test scores. The same panel was used repeatedly; small score
+differences do not establish generalization gains. Privileged and visual inputs,
+and noise settings, differ. Full episode records, configurations and training
+logs accompany each checkpoint on Hugging Face; compact evidence is in [results/](results/).
 
-Both SMWM runs keep **3 frames, 8 past action blocks, and auxiliary loss**. The adapter learns on top of fixed features. Fine-tuning changes the encoder itself, at a smaller learning rate than the policy.
+## How the selected policies were trained
 
-## Reading the results
+The local policies use **Modified Scripted Controller 5K**: 5,000 training
+rollouts plus 100 separate validation rollouts, retaining failures. Clean
+scripted actions supervise imitation; executed, potentially noisy actions
+supervise dynamics. The teacher uses visible height/table-slot ordering and a
+common grasp opening. RGB auxiliary labels describe box size, material and pose
+and are used only during training.
 
-Scores use 100 validation scenes × two sample seeds, with up to 1,795 controls. These are development results, not independent final-test results.
+Unless stated otherwise, runs use seed 0, AdamW (learning rate 3e-4, weight decay
+0.01, betas 0.9/0.95), 2K warmup steps and cosine decay, effective batch 256,
+EMA 0.999, history dropout 0.3, and normalized input clipping at 5. Published
+policy weights are EMA. The FM action transformer has width 512, eight layers,
+eight heads, and predicts up to 16 future blocks; evaluation executes one.
 
-**Sampling noise is an inference choice.** The published RGB score starts action generation from zeros; the published privileged score starts from Gaussian noise. The one-episode difference does not establish that RGB is better; compare matched sampling settings.
+**RS-IMLE + distillation.** Warm-started from the 100K RGB FM teacher, then trained
+for 60K updates at learning rate 1e-4 with 500 warmup steps. For each state,
+20 noise candidates are tested against the clean action label; candidates within
+RMS radius 0.0063429 are rejected and the nearest remaining candidate is regressed
+to the label. An equally weighted same-noise loss matches the frozen teacher's
+10-step output; 25% of distillation noise inputs are zero. Both losses cover the
+first executed block, with auxiliary visual loss 0.1. Inference uses the trained
+one-pass map `action = noise - v(noise, t=1)`. This is a trained student, not the
+unchanged teacher run for one step. It scored 176/200 at noise 0 and 148/200 at
+noise 1. The older standalone latent RS-IMLE trainer is also retained, but its
+200K/recovery checkpoints are not part of this release.
 
-Falling validation loss means better imitation on held-out examples. Simulator rollouts are still needed to measure stacking success and recovery.
+**RGB FM.** Trained a CNN and action transformer from scratch for 100K updates,
+using three image times, eight action-history blocks, clean-action flow matching
+and auxiliary visual loss 0.1. Microbatch 64 × four accumulation steps. The same
+weights score 161/200 with the original 10-step sampler and 168/200 with the
+selected 3-step Euler sampler using time shift 2; this is an inference change.
 
-## Checkpoints and code
+**Privileged FM.** Trained from scratch for 100K updates with batch 1,024, current
+190-D simulator state and 16 past action blocks. Lowering, release and retreat
+examples for boxes three and four receive 3× sampling weight. It uses clean-action
+flow matching without the RGB auxiliary loss. Its 160/200 result uses Gaussian
+sampling noise, scale 1.
 
-The [Hugging Face repository](https://huggingface.co/thejoyestboy/block-stack-smwm-checkpoints) contains **Privilege FM Policy** and **RGB FM Policy**, with configurations, training records, and evaluation results.
+**ACT-JEPA-style.** Trained from scratch for 100K updates on the 5K demonstrations,
+with a raw-RGB FM action branch and a four-layer action-conditioned latent
+predictor. Future targets are frozen SMWM features at offsets 1, 2, 4, 8 and 16;
+a tower-count head reads predicted latents. Loss is flow matching + 0.1 visual
+auxiliary + 1.0 latent smooth-L1 + 0.1 count cross-entropy. The selected 157/200
+result runs the action branch alone. Adding failure rollouts yielded 149/200
+for that later policy; no completed ACT-JEPA planning result was found in the
+audited campaign. This local adaptation does not claim to reproduce the
+original ACT-JEPA implementation exactly.
 
-- [Training code and launch guide](docs/RUN_CODE_MAP.md): use `privilegeFM` or `encoderFM`. The old L2/L4 names still work.
-- [Experiment presets](configs/fm_trials.json): baseline, history, raw RGB, auxiliary, adapter, and fine-tuning options.
-- [Analysis folders](analysis/README.md): outputs are grouped under `Privileged FM Policy` and `Encoder FM Policy`.
-- L3/simulatorFM mixed images and simulator signals. Its runs are archived; old checkpoints remain compatible.
+**TD-MPC2-style.** Trained from scratch for 100K updates on demonstrations, then
+initialized stage 2 from that checkpoint and trained 50K more updates on the
+same demonstrations plus 1,500 RGB FM rollouts (500 each at noise 0, 0.5 and 1).
+Rollouts have no clean labels and train model/value losses only. The model uses
+a 512-D SimNorm latent, six-block dynamics rollouts, tower-count-change rewards,
+five Q heads and IQL value learning (discount 0.99, expectile 0.7). Loss weights
+are consistency 20, reward 0.1, Q/V 0.1, BC 1, auxiliary 0.1. Its flow prior and
+IQL objective are deliberate adaptations of TD-MPC2. Stage 2's prior scores
+150/200; model-return planning scores 136/200 and Q-only ranking 140/200 with the
+same weights. The release defaults to the prior and retains both planner modes.
 
-For local setup, run `bash scripts/setup.sh`. On headless Linux servers, use `MUJOCO_GL=egl` for rendering. See the [simulator guide](docs/SIMULATOR.md) and [original assignment](assignment/README.md) for installation and the planning/training tracks.
+**SMWM FM.** Initialized the visual encoder from the supplied SMWM model and
+fine-tuned it jointly with a new FM policy for 100K updates, using three image
+times, eight past blocks and auxiliary loss 0.1. The encoder uses one tenth of
+the policy learning rate (3e-5 versus 3e-4). The fine-tuned encoder is embedded
+in the checkpoint. It scored 145/200, versus 83/200 for the frozen-encoder adapter
+candidate at noise 0.
+
+**Shared SMWM.** The supplied 192-D visual world model was pretrained for 145K
+updates on BC Policy 20K with next-latent prediction plus inverse-dynamics loss
+(weight 1), batch 256, learning rate 1e-4, weight decay 1e-3 and 1K warmup steps.
+Its predictor then received 60K on-policy fine-tuning updates while the encoder
+remained frozen. These are upstream training records; this release does not
+claim to have rerun that training.
+
+## Train or extend
+
+[Training commands and data preparation](docs/TRAINING.md) cover every released
+policy. Training data and simulator assets are separate from checkpoint weights.
+The modified scripted dataset is not bundled in the model repo; the collector
+and packer are included to regenerate it. The earlier BC Policy 20K assignment
+data is a different dataset; see [the assignment guide](assignment/training/README.md).
+
+- `assignment/training/`: shared FM, SMWM, legacy RS-IMLE, data and planning code.
+- `ACT-JEPA/`, `TD-MPC/`, `RS-IMLE/`: model-specific entry points.
+- `wm_shared/`: ACT-JEPA/TD-MPC data, training, evaluation and rollout collection.
+- `scripts/`: setup, download, evaluation, collection and packing.
+- `checkpoints.json`, `results/`: complete checkpoint inventory and selection evidence.
+
+No external worktree or `BLOCKSTACK_SRC` is needed. Historical duplicate source
+archives and machine-local analysis links remain in `smwm-clean` history.
+See [source provenance](configs/source_provenance.json),
+[simulator setup](docs/SIMULATOR.md), and [third-party notices](THIRD_PARTY.md).
+
+```bash
+python -m pip install pytest
+MUJOCO_GL=egl python -m pytest -q tests
+```

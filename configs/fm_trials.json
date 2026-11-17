@@ -1,46 +1,8 @@
 {
-  "privilegeFM-baseline": {
-    "family": "privilegeFM",
-    "history_blocks": 0
-  },
-  "privilegeFM-h16": {
-    "family": "privilegeFM",
-    "history_blocks": 16
-  },
   "privilegeFM-h16-late": {
     "family": "privilegeFM",
     "history_blocks": 16,
-    "late_phase_weight": 3
-  },
-  "encoderFM-baseline-c1": {
-    "family": "encoderFM",
-    "context": 1,
-    "history_blocks": 0
-  },
-  "encoderFM-baseline-c3": {
-    "family": "encoderFM",
-    "context": 3,
-    "history_blocks": 0
-  },
-  "encoderFM-h16": {
-    "family": "encoderFM",
-    "context": 3,
-    "history_blocks": 16
-  },
-  "encoderFM-frozen-c3-control": {
-    "family": "encoderFM",
-    "context": 3,
-    "history_blocks": 8
-  },
-  "encoderFM-raw-c3-control": {
-    "family": "encoderFM",
-    "context": 3,
-    "history_blocks": 8,
-    "vision_mode": "raw",
-    "auxiliary_loss_weight": 0,
-    "late_phase_weight": 1,
-    "batch": 64,
-    "accumulation_steps": 4,
+    "late_phase_weight": 3,
     "input_clip": 5
   },
   "encoderFM-raw-c3-aux": {
@@ -54,93 +16,14 @@
     "accumulation_steps": 4,
     "input_clip": 5
   },
-  "encoderFM-raw-c3-aux-late": {
-    "family": "encoderFM",
-    "context": 3,
-    "history_blocks": 8,
-    "vision_mode": "raw",
-    "auxiliary_loss_weight": 0.1,
-    "late_phase_weight": 3,
-    "batch": 64,
-    "accumulation_steps": 4,
-    "input_clip": 5
-  },
-  "encoderFM-raw-c3-late": {
-    "family": "encoderFM",
-    "context": 3,
-    "history_blocks": 8,
-    "vision_mode": "raw",
-    "auxiliary_loss_weight": 0,
-    "late_phase_weight": 3,
-    "batch": 64,
-    "accumulation_steps": 4,
-    "input_clip": 5
-  },
-  "encoderFM-frozen-c8-control": {
-    "family": "encoderFM",
-    "context": 8,
-    "history_blocks": 8
-  },
-  "encoderFM-raw-c8-control": {
-    "family": "encoderFM",
-    "context": 8,
-    "history_blocks": 8,
-    "vision_mode": "raw",
-    "auxiliary_loss_weight": 0,
-    "late_phase_weight": 1,
-    "batch": 64,
-    "accumulation_steps": 4,
-    "input_clip": 5
-  },
-  "encoderFM-raw-c8-aux": {
-    "family": "encoderFM",
-    "context": 8,
-    "history_blocks": 8,
-    "vision_mode": "raw",
-    "auxiliary_loss_weight": 0.1,
-    "late_phase_weight": 1,
-    "batch": 64,
-    "accumulation_steps": 4,
-    "input_clip": 5
-  },
-  "encoderFM-raw-c8-aux-late": {
-    "family": "encoderFM",
-    "context": 8,
-    "history_blocks": 8,
-    "vision_mode": "raw",
-    "auxiliary_loss_weight": 0.1,
-    "late_phase_weight": 3,
-    "batch": 64,
-    "accumulation_steps": 4,
-    "input_clip": 5
-  },
-  "encoderFM-raw-c8-late": {
-    "family": "encoderFM",
-    "context": 8,
-    "history_blocks": 8,
-    "vision_mode": "raw",
-    "auxiliary_loss_weight": 0,
-    "late_phase_weight": 3,
-    "batch": 64,
-    "accumulation_steps": 4,
-    "input_clip": 5
-  },
-  "encoderFM-adapter-aux": {
-    "family": "encoderFM",
-    "context": 3,
-    "history_blocks": 8,
-    "vision_mode": "adapter",
-    "auxiliary_loss_weight": 0.1,
-    "batch": 1024,
-    "input_clip": 5
-  },
   "encoderFM-smwm_finetune-aux": {
     "family": "encoderFM",
     "context": 3,
     "history_blocks": 8,
     "vision_mode": "smwm_finetune",
     "auxiliary_loss_weight": 0.1,
-    "batch": 128,
-    "input_clip": 5
+    "batch": 64,
+    "input_clip": 5,
+    "accumulation_steps": 4
   }
 }

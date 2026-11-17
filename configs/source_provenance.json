@@ -1,0 +1,187 @@
+{
+  "base": "f8b16db956ae5fd26022d7ce695818ee18204c6e",
+  "integration_source_commit": "9ea4cb98a747db4104e33d93d7389035a6a3b7ff",
+  "note": "Source included uncommitted speed-up changes; per-file hashes identify the imported bytes. Local import paths and public FM aliases were adapted for this release.",
+  "imports": [
+    {
+      "path": "assignment/experiments/distill_eval.py",
+      "source_sha256": "2eaf2ffc76a7acdcf3d15decbbddedec0f71a0a5de17222529a66c01abea25df",
+      "release_sha256": "2eaf2ffc76a7acdcf3d15decbbddedec0f71a0a5de17222529a66c01abea25df"
+    },
+    {
+      "path": "assignment/experiments/common.py",
+      "source_sha256": "3ec95a0f07ab8db6b99354307b12e2e3bbec803acc939d2a6add623a5e62bd66",
+      "release_sha256": "3ec95a0f07ab8db6b99354307b12e2e3bbec803acc939d2a6add623a5e62bd66"
+    },
+    {
+      "path": "assignment/training/data/teacher_phase.py",
+      "source_sha256": "cfb3fe02b076f1e4d70f5d5c0df2899190649cefe46be2243cfca86cb2d51c08",
+      "release_sha256": "cfb3fe02b076f1e4d70f5d5c0df2899190649cefe46be2243cfca86cb2d51c08"
+    },
+    {
+      "path": "assignment/training/data/scripted.py",
+      "source_sha256": "5560f4948db1d2a614dfa1df0d8306eed0bf337d18b39dea7dae0ffcbb022243",
+      "release_sha256": "5560f4948db1d2a614dfa1df0d8306eed0bf337d18b39dea7dae0ffcbb022243"
+    },
+    {
+      "path": "assignment/training/training/distill_policy.py",
+      "source_sha256": "af81cfa0ac3ea28162f55afda1a6b39d6fb9362da107a9bd04c526cf8b534f61",
+      "release_sha256": "fb54123880c402861cc8cf9f4b11e06fb9c0429df0fe675120da1501adf60b99"
+    },
+    {
+      "path": "assignment/training/training/cuda_graph.py",
+      "source_sha256": "634e80e3c3dc237ccb134fea8f9afb74166231afc8bf372b2c0ddf387c6e96cc",
+      "release_sha256": "634e80e3c3dc237ccb134fea8f9afb74166231afc8bf372b2c0ddf387c6e96cc"
+    },
+    {
+      "path": "assignment/training/training/train_fast_student.py",
+      "source_sha256": "06aab89a754570a6c51b05f8c167c8e668e868f42ffa1ad643691452ae54fa8f",
+      "release_sha256": "06aab89a754570a6c51b05f8c167c8e668e868f42ffa1ad643691452ae54fa8f"
+    },
+    {
+      "path": "assignment/training/training/rs_imle.py",
+      "source_sha256": "7ae0df4b63ec365531e4c50c6e654ee26f1e39a070931ecb0ce5c4ca451703f0",
+      "release_sha256": "7ae0df4b63ec365531e4c50c6e654ee26f1e39a070931ecb0ce5c4ca451703f0"
+    },
+    {
+      "path": "assignment/training/training/train_rsimle.py",
+      "source_sha256": "bad35d2dd93a10498639bb893ef3f38409d79120ea4c3461165defc278d47953",
+      "release_sha256": "bad35d2dd93a10498639bb893ef3f38409d79120ea4c3461165defc278d47953"
+    },
+    {
+      "path": "scripts/evaluate_distill.py",
+      "source_sha256": "24df30e2d88226928cebb45b146d44ca1ca6a392de47bd46e0da4e9250d9ea02",
+      "release_sha256": "24df30e2d88226928cebb45b146d44ca1ca6a392de47bd46e0da4e9250d9ea02"
+    },
+    {
+      "path": "scripts/train_fast_student.py",
+      "source_sha256": "97814179e2b9010e005041d00abff90ed46ad5d30f6828075bad8bb4742c1cc7",
+      "release_sha256": "97814179e2b9010e005041d00abff90ed46ad5d30f6828075bad8bb4742c1cc7"
+    },
+    {
+      "path": "scripts/pack_better_scripted.py",
+      "source_sha256": "ec24f7f6a0c1c83ec7231810a5b1bc4dd6df86f2fc999b30ea3513cdbdef5ce1",
+      "release_sha256": "ec24f7f6a0c1c83ec7231810a5b1bc4dd6df86f2fc999b30ea3513cdbdef5ce1"
+    },
+    {
+      "path": "scripts/collect_better_scripted.py",
+      "source_sha256": "469e7d03fa259fde5e6e092141907a6ac376ab39e0f2964142ae691bba24f98e",
+      "release_sha256": "469e7d03fa259fde5e6e092141907a6ac376ab39e0f2964142ae691bba24f98e"
+    },
+    {
+      "path": "scripts/collect_data_ablation.py",
+      "source_sha256": "b239e35971fdd7144f71baec19e75735d51722a6c82cde181b9e922f39d4a083",
+      "release_sha256": "b239e35971fdd7144f71baec19e75735d51722a6c82cde181b9e922f39d4a083"
+    },
+    {
+      "path": "tests/test_distill_eval.py",
+      "source_sha256": "20454f7ffc5f52c4d1d4823182c413c1a7caffa8ae884343d29da15b7bc32671",
+      "release_sha256": "20454f7ffc5f52c4d1d4823182c413c1a7caffa8ae884343d29da15b7bc32671"
+    },
+    {
+      "path": "tests/test_rsimle.py",
+      "source_sha256": "18d174bc8671b0eb8458e3bf9746fab78371e0eb587a7d80d8b859c2bddc78be",
+      "release_sha256": "18d174bc8671b0eb8458e3bf9746fab78371e0eb587a7d80d8b859c2bddc78be"
+    },
+    {
+      "path": "tests/test_distill_data.py",
+      "source_sha256": "8d006a707b1fcfbce8e1f5f0e192e7e9337912d6b5440ced8118d73e0620b9fd",
+      "release_sha256": "8d006a707b1fcfbce8e1f5f0e192e7e9337912d6b5440ced8118d73e0620b9fd"
+    },
+    {
+      "path": "wm_shared/servers.py",
+      "source_sha256": "67f6e4806f5c1584895f6f67b882b54e7e002fa13c4cb02810274972fb7521ad",
+      "release_sha256": "67f6e4806f5c1584895f6f67b882b54e7e002fa13c4cb02810274972fb7521ad"
+    },
+    {
+      "path": "wm_shared/evaluate.py",
+      "source_sha256": "1bdabcc4de355aac585194c525cd6a31bd552dc7bb5e4ca1bec90804c59cba7c",
+      "release_sha256": "1bdabcc4de355aac585194c525cd6a31bd552dc7bb5e4ca1bec90804c59cba7c"
+    },
+    {
+      "path": "wm_shared/__init__.py",
+      "source_sha256": "2e80dfd6590f35fdc70ee166c07e84ddae130ce390983a301fcd3d53a6c0acbd",
+      "release_sha256": "69c461cd2efda3e60fb7773dfba4cf3fd1d415cd37cee1664ee2157519727783"
+    },
+    {
+      "path": "wm_shared/data.py",
+      "source_sha256": "840591f5df3197c9c350196eee3b7f21a94b6bf58f55c428e52739ae5b67bddc",
+      "release_sha256": "840591f5df3197c9c350196eee3b7f21a94b6bf58f55c428e52739ae5b67bddc"
+    },
+    {
+      "path": "wm_shared/training.py",
+      "source_sha256": "1e870116565f8dc155ac9dfa3292ed93478dc69bc10e918d59ed3fe44757ab06",
+      "release_sha256": "1e870116565f8dc155ac9dfa3292ed93478dc69bc10e918d59ed3fe44757ab06"
+    },
+    {
+      "path": "wm_shared/collect.py",
+      "source_sha256": "4b713e46485697a54a0e7b9c54078dff2fefbd33751901307ec78d2768bb469b",
+      "release_sha256": "65373a15d3e8fafe680ab51316b1cfa68bceac3a8ffeccb1d816d5f6a4df53f4"
+    },
+    {
+      "path": "ACT-JEPA/act_jepa_model.py",
+      "source_sha256": "298933da3ec422793391a0140dfd84c7e1bfe520d316dac6667263f8fa78ab0b",
+      "release_sha256": "298933da3ec422793391a0140dfd84c7e1bfe520d316dac6667263f8fa78ab0b"
+    },
+    {
+      "path": "ACT-JEPA/train.py",
+      "source_sha256": "27fb7294b142265306e73d3f1de7e794cdf5f08635a23fadebb3ccac34fc342e",
+      "release_sha256": "27fb7294b142265306e73d3f1de7e794cdf5f08635a23fadebb3ccac34fc342e"
+    },
+    {
+      "path": "ACT-JEPA/evaluate.py",
+      "source_sha256": "61ef41c70bc948f387fd3df2c5aef42880bf7151a7f1e338c0de6a3aa30c11c7",
+      "release_sha256": "61ef41c70bc948f387fd3df2c5aef42880bf7151a7f1e338c0de6a3aa30c11c7"
+    },
+    {
+      "path": "ACT-JEPA/collect_rollouts.py",
+      "source_sha256": "6cceb420ecb9dfdccdfc29675d076ee7ec10a8c2a68cf16daf61c2b47588db9e",
+      "release_sha256": "6cceb420ecb9dfdccdfc29675d076ee7ec10a8c2a68cf16daf61c2b47588db9e"
+    },
+    {
+      "path": "TD-MPC/tdmpc_model.py",
+      "source_sha256": "e4af9399ee561c41f246de1c62db57bb3293731e199c9c3d04c26bfbf837fe14",
+      "release_sha256": "e4af9399ee561c41f246de1c62db57bb3293731e199c9c3d04c26bfbf837fe14"
+    },
+    {
+      "path": "TD-MPC/train.py",
+      "source_sha256": "88cb702b9c674ef787c99d22d8561922f5ecd7483801231a77ce314bba5c8d94",
+      "release_sha256": "88cb702b9c674ef787c99d22d8561922f5ecd7483801231a77ce314bba5c8d94"
+    },
+    {
+      "path": "TD-MPC/evaluate.py",
+      "source_sha256": "4c68ee378eaffe21e650c65a8a8a953e37305486f99c9e77431da376bd27f387",
+      "release_sha256": "4c68ee378eaffe21e650c65a8a8a953e37305486f99c9e77431da376bd27f387"
+    },
+    {
+      "path": "TD-MPC/collect_rollouts.py",
+      "source_sha256": "0a8f61762fbed7fd1f20141264b427fcf5316950bcfa91340c8f397ec29be638",
+      "release_sha256": "0a8f61762fbed7fd1f20141264b427fcf5316950bcfa91340c8f397ec29be638"
+    },
+    {
+      "path": "assignment/training/training/policy.py",
+      "source_sha256": "ba33948089e4b298b312773f44f90d64ecdaa70e4a44a849aa20ac10bbdcd689",
+      "release_sha256": "ba33948089e4b298b312773f44f90d64ecdaa70e4a44a849aa20ac10bbdcd689"
+    },
+    {
+      "path": "assignment/training/data/http_range.py",
+      "source_sha256": "3a12d2354e463caf408c6bd843f8141cdc15cfa63c2b73df6a1550e4da324fc2",
+      "release_sha256": "3a12d2354e463caf408c6bd843f8141cdc15cfa63c2b73df6a1550e4da324fc2"
+    },
+    {
+      "path": "scripts/build_distill_dataset.py",
+      "source_sha256": "eb88c5440c6b9fdeae766a207d84c0786307c167f2e166efeba2f69ff36bd050",
+      "release_sha256": "1202ec14798305895291c5b3b980f890059184d1edcde49c61d332948d6d84d2"
+    },
+    {
+      "path": "assignment/training/training/state_estimator.py",
+      "source_sha256": "8c31954189cf9e8232ca11e08165e63da8c20a6eb2fdc9aaefafb228aff46932",
+      "release_sha256": "8c31954189cf9e8232ca11e08165e63da8c20a6eb2fdc9aaefafb228aff46932"
+    },
+    {
+      "path": "tests/test_distill_policy.py",
+      "source_sha256": "cacf7da576a43fe69ca5739c8da7e254a78eaacd9f2d60341e30a06da672c9d0",
+      "release_sha256": "cacf7da576a43fe69ca5739c8da7e254a78eaacd9f2d60341e30a06da672c9d0"
+    }
+  ]
+}

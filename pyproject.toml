@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "world-model-gym"
 version = "0.2.0"
 description = "MuJoCo dexterous cube-stacking simulator and latent world-model assignment"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "mujoco>=3.3,<4",
     "gymnasium>=1.1,<2",
@@ -23,4 +23,4 @@ dependencies = [
 worldmodel = ["torch>=2.6,<3", "huggingface_hub>=0.26", "matplotlib>=3.9,<4"]
 
 [tool.setuptools.packages.find]
-include = ["assignment*", "cube_pick*"]
+include = ["assignment*", "cube_pick*", "wm_shared*"]

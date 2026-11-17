@@ -200,12 +200,21 @@ class DFPolicy(nn.Module):
 
 
 def save_policy(path, model, info):
-    torch.save(dict(state_dict=model.state_dict(), config=asdict(model.cfg), info=info), path)
+    torch.save(dict(state_dict=model.state_dict(), config=asdict(model.cfg), info=info,
+                    policy_kind=getattr(model, 'policy_kind', 'df')), path)
 
 
 def load_policy(path, device='cpu'):
     ckpt = torch.load(path, map_location=device, weights_only=False)
-    model = DFPolicy(PolicyConfig(**ckpt['config'])).to(device)
+    kind = ckpt.get('policy_kind', 'df')
+    if kind == 'rs_imle':
+        from assignment.training.training.rs_imle import RSIMLEPolicy
+        cls = RSIMLEPolicy
+    elif kind == 'df':
+        cls = DFPolicy
+    else:
+        raise ValueError(f'unknown policy kind: {kind}')
+    model = cls(PolicyConfig(**ckpt['config'])).to(device)
     model.load_state_dict(ckpt['state_dict'])
     return model.eval(), ckpt['info']
 

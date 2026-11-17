@@ -1,0 +1,154 @@
+{
+  "schema": "blockstack-release-v1",
+  "repo_id": "thejoyestboy/block-stack-smwm-checkpoints",
+  "base_commit": "f8b16db",
+  "selection": "Best completed development-panel result per included policy family; no final-test selection.",
+  "checkpoints": [
+    {
+      "id": "privilege-fm",
+      "name": "Privilege FM Policy",
+      "path": "Privilege FM Policy/policy.pt",
+      "sha256": "a38fe3d39829e3d3fbd520d5cf3552462757fff248a3f1f762a07511af0d8c9c",
+      "size_bytes": 157015061,
+      "policy_kind": "distill_flow",
+      "training_updates": 100000,
+      "serialization": "Existing Hub file retained; all state_dict tensors exactly match the evaluated step checkpoint.",
+      "evaluation": {
+        "successes": 160,
+        "episodes": 200,
+        "split": "val",
+        "options": {
+          "noise_scale": 1.0,
+          "flow_steps": 10
+        },
+        "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+        "evaluated_sha256": "a38fe3d39829e3d3fbd520d5cf3552462757fff248a3f1f762a07511af0d8c9c"
+      },
+      "inference_dependencies": []
+    },
+    {
+      "id": "rgb-fm",
+      "name": "RGB FM Policy",
+      "path": "RGB FM Policy/policy.pt",
+      "sha256": "e5860938ce0898dd58ead7bb00ff6b15b5af81c31d841babcfd227975e957c03",
+      "size_bytes": 161410315,
+      "policy_kind": "distill_flow",
+      "training_updates": 100000,
+      "serialization": "Existing Hub file retained; all state_dict tensors exactly match the evaluated step checkpoint.",
+      "evaluation": {
+        "successes": 168,
+        "episodes": 200,
+        "split": "val",
+        "options": {
+          "noise_scale": 0.0,
+          "flow_steps": 3,
+          "time_shift": 2.0
+        },
+        "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+        "evaluated_sha256": "e5860938ce0898dd58ead7bb00ff6b15b5af81c31d841babcfd227975e957c03"
+      },
+      "inference_dependencies": []
+    },
+    {
+      "id": "smwm-fm",
+      "name": "SMWM FM Policy",
+      "path": "SMWM FM Policy/policy.pt",
+      "sha256": "e7e2ff992fe97448cf82dc52921faa9ee8a9ab201f1e1c8ac19cedda012c3b8b",
+      "size_bytes": 182658966,
+      "policy_kind": "distill_flow",
+      "training_updates": 100000,
+      "serialization": "Exact evaluated checkpoint bytes.",
+      "evaluation": {
+        "successes": 145,
+        "episodes": 200,
+        "split": "val",
+        "options": {
+          "noise_scale": 0.0,
+          "flow_steps": 10
+        },
+        "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+        "evaluated_sha256": "e7e2ff992fe97448cf82dc52921faa9ee8a9ab201f1e1c8ac19cedda012c3b8b"
+      },
+      "inference_dependencies": []
+    },
+    {
+      "id": "act-jepa",
+      "name": "ACT-JEPA",
+      "path": "ACT-JEPA/policy.pt",
+      "sha256": "5557e09dbf27bb0677c5ff945b41dd5b7178cdb9cd9cca3828d52c5a38249e99",
+      "size_bytes": 239195609,
+      "policy_kind": "act_jepa",
+      "training_updates": 100000,
+      "serialization": "Exact evaluated checkpoint bytes.",
+      "evaluation": {
+        "successes": 157,
+        "episodes": 200,
+        "split": "val",
+        "options": {
+          "noise_scale": 0.0,
+          "flow_steps": 10,
+          "mode": "policy"
+        },
+        "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+        "evaluated_sha256": "5557e09dbf27bb0677c5ff945b41dd5b7178cdb9cd9cca3828d52c5a38249e99"
+      },
+      "inference_dependencies": []
+    },
+    {
+      "id": "td-mpc",
+      "name": "TD-MPC",
+      "path": "TD-MPC/policy.pt",
+      "sha256": "3a38b65ea312eda3f3294b3bc1e6e0222c24d29a949ce5e27d955093e4461628",
+      "size_bytes": 278696253,
+      "policy_kind": "tdmpc_wm",
+      "training_updates": 150000,
+      "serialization": "Exact evaluated checkpoint bytes.",
+      "evaluation": {
+        "successes": 150,
+        "episodes": 200,
+        "split": "val",
+        "options": {
+          "noise_scale": 0.0,
+          "flow_steps": 10,
+          "mode": "policy"
+        },
+        "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+        "evaluated_sha256": "3a38b65ea312eda3f3294b3bc1e6e0222c24d29a949ce5e27d955093e4461628"
+      },
+      "inference_dependencies": []
+    },
+    {
+      "id": "rs-imle",
+      "name": "RS-IMLE",
+      "path": "RS-IMLE/policy.pt",
+      "sha256": "5b61bd48ef0bef312a119b37d6adacd29df2ca3c47bef6849f092692af4d40dc",
+      "size_bytes": 161411723,
+      "policy_kind": "distill_flow",
+      "training_updates": 60000,
+      "serialization": "Exact evaluated checkpoint bytes.",
+      "evaluation": {
+        "successes": 176,
+        "episodes": 200,
+        "split": "val",
+        "options": {
+          "noise_scale": 0.0,
+          "flow_steps": 1
+        },
+        "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+        "evaluated_sha256": "5b61bd48ef0bef312a119b37d6adacd29df2ca3c47bef6849f092692af4d40dc"
+      },
+      "inference_dependencies": []
+    },
+    {
+      "id": "smwm",
+      "name": "SMWM",
+      "path": "SMWM/model.pt",
+      "sha256": "26590118c9cb38e6af88248a3379c6622c89160d605d68e7d48f586527e821aa",
+      "size_bytes": 73352395,
+      "policy_kind": "smwm",
+      "training_updates": 205000,
+      "serialization": "Exact supplied world-model checkpoint bytes.",
+      "role": "Shared encoder and predictor for latent data preparation; not an action policy."
+    }
+  ]
+}

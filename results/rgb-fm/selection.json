@@ -1,0 +1,616 @@
+{
+  "checkpoint": "RGB FM Policy/policy.pt",
+  "protocol": {
+    "policy": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L4-raw-c3-aux/step-100000.pt",
+    "policy_sha256": "e5860938ce0898dd58ead7bb00ff6b15b5af81c31d841babcfd227975e957c03",
+    "encoder": null,
+    "encoder_sha256": null,
+    "state_estimator": null,
+    "state_estimator_sha256": null,
+    "split": "val",
+    "scenes": [
+      103002,
+      103026,
+      103032,
+      103039,
+      103084,
+      103099,
+      103105,
+      103122,
+      103125,
+      103141,
+      103154,
+      103180,
+      103184,
+      103185,
+      103190,
+      103203,
+      103208,
+      103222,
+      103224,
+      103240,
+      103242,
+      103252,
+      103258,
+      103262,
+      103278,
+      103285,
+      103311,
+      103315,
+      103324,
+      103326,
+      103329,
+      103348,
+      103354,
+      103355,
+      103356,
+      103367,
+      103378,
+      103392,
+      103397,
+      103400,
+      103405,
+      103415,
+      103419,
+      103420,
+      103424,
+      103455,
+      103466,
+      103485,
+      103503,
+      103507,
+      103541,
+      103547,
+      103556,
+      103561,
+      103567,
+      103569,
+      103585,
+      103592,
+      103593,
+      103610,
+      103613,
+      103625,
+      103633,
+      103639,
+      103644,
+      103667,
+      103668,
+      103677,
+      103679,
+      103694,
+      103722,
+      103731,
+      103734,
+      103738,
+      103748,
+      103765,
+      103792,
+      103795,
+      103812,
+      103817,
+      103818,
+      103819,
+      103829,
+      103848,
+      103857,
+      103859,
+      103861,
+      103863,
+      103874,
+      103881,
+      103886,
+      103900,
+      103916,
+      103924,
+      103934,
+      103945,
+      103959,
+      103960,
+      103966,
+      103968
+    ],
+    "sample_seeds": [
+      0,
+      1
+    ],
+    "horizon": 1795,
+    "renderer": "egl",
+    "egl_device": 5,
+    "mujoco": "3.13.0",
+    "resolution": 128,
+    "target_count": 4,
+    "hold_controls": 10,
+    "settings": {
+      "kind": "distill",
+      "horizon": 1795,
+      "execute_blocks": 1,
+      "ensemble": false,
+      "context": 3,
+      "n_prev_blocks": 8,
+      "phase_input": false,
+      "vision_mode": "raw",
+      "scripted_visual": false,
+      "scripted_recovery": false,
+      "input_clip": 5.0,
+      "render": true
+    },
+    "flow_steps": 3,
+    "noise_scale": 0.0,
+    "cuda_graph": "on",
+    "solver": "euler",
+    "time_shift": 2.0,
+    "stage_definitions": {
+      "approach": "hand point within 0.10 m of a non-tower object, or force-defined grasp",
+      "grasp": "at least two hand parts pressing the same approached object above 0.05 N",
+      "lift": "the grasped object is airborne under the shared row_lifted definition",
+      "place": "previously lifted object joins a goal-zone support tower of this rank, allowing hand contact",
+      "release_hold": "placed object remains in a hands-free tower of this rank for ten consecutive controls",
+      "rank": "tower count immediately before the approach; object event chains are tracked within each rank"
+    },
+    "smoke": false,
+    "benchmark": false,
+    "comparison_valid": true,
+    "evaluation_role": "benchmark",
+    "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+    "panel_role": "development",
+    "selection_manifest_sha256": null,
+    "frozen_clock": "180 seconds, clipped at zero for diagnostic horizon extension",
+    "rng": "independent per episode, scene + 1000000 * sample; batches do not share RNG"
+  },
+  "summary": {
+    "completed": true,
+    "episodes": 200,
+    "scenes": 100,
+    "successes": 168,
+    "success_rate": 0.84,
+    "success_wilson95": [
+      0.7828592983793289,
+      0.8843258796841297
+    ],
+    "success_scene_cluster95": [
+      0.78,
+      0.895
+    ],
+    "statistics_note": "Episode Wilson intervals are descriptive; scene-cluster bootstrap accounts for repeated samples.",
+    "stage_conditional": [
+      {
+        "block": 1,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 2,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 197,
+          "denominator": 200,
+          "rate": 0.985,
+          "wilson95": [
+            0.9568342712073097,
+            0.9948857622067417
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 3,
+        "grasp_given_approach": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 190,
+          "denominator": 197,
+          "rate": 0.9644670050761421,
+          "wilson95": [
+            0.9284833128409977,
+            0.9826831419066624
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 184,
+          "denominator": 190,
+          "rate": 0.968421052631579,
+          "wilson95": [
+            0.9328278934805336,
+            0.985448315762466
+          ]
+        }
+      },
+      {
+        "block": 4,
+        "grasp_given_approach": {
+          "numerator": 184,
+          "denominator": 185,
+          "rate": 0.9945945945945946,
+          "wilson95": [
+            0.970021687360282,
+            0.9990451750905076
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 184,
+          "denominator": 184,
+          "rate": 1.0,
+          "wilson95": [
+            0.9795494623774134,
+            0.9999999999999999
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 177,
+          "denominator": 184,
+          "rate": 0.9619565217391305,
+          "wilson95": [
+            0.9235668697334045,
+            0.9814516552892059
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 168,
+          "denominator": 177,
+          "rate": 0.9491525423728814,
+          "wilson95": [
+            0.9062017383368449,
+            0.9730214278379529
+          ]
+        }
+      }
+    ],
+    "mean_stage_conditional_score": 0.9889744822758955,
+    "stage_score_missing_denominator": "zero, so unreached late stages cannot improve the ranking",
+    "timeouts": 32,
+    "timeout_rate": 0.16,
+    "ground_falls": 2,
+    "ground_fall_episode_rate": 0.005,
+    "mean_final_count": 3.63,
+    "mean_peak_count": 3.82,
+    "controls_to_success": {
+      "values": [
+        1453,
+        1451,
+        1497,
+        1497,
+        1450,
+        1451,
+        1480,
+        1476,
+        1500,
+        1478,
+        1487,
+        1492,
+        1476,
+        1479,
+        1481,
+        1474,
+        1464,
+        1440,
+        1478,
+        1479,
+        1485,
+        1488,
+        1467,
+        1470,
+        1491,
+        1496,
+        1442,
+        1458,
+        1447,
+        1451,
+        1462,
+        1446,
+        1464,
+        1474,
+        1476,
+        1468,
+        1464,
+        1458,
+        1459,
+        1444,
+        1445,
+        1441,
+        1439,
+        1490,
+        1478,
+        1478,
+        1456,
+        1492,
+        1445,
+        1443,
+        1467,
+        1466,
+        1447,
+        1452,
+        1438,
+        1439,
+        1451,
+        1453,
+        1451,
+        1449,
+        1463,
+        1444,
+        1443,
+        1444,
+        1454,
+        1449,
+        1451,
+        1448,
+        1447,
+        1450,
+        1451,
+        1469,
+        1490,
+        1495,
+        1479,
+        1449,
+        1451,
+        1470,
+        1468,
+        1449,
+        1475,
+        1483,
+        1471,
+        1456,
+        1457,
+        1450,
+        1450,
+        1449,
+        1452,
+        1449,
+        1453,
+        1477,
+        1484,
+        1439,
+        1442,
+        1442,
+        1444,
+        1500,
+        1477,
+        1474,
+        1469,
+        1441,
+        1446,
+        1451,
+        1451,
+        1453,
+        1451,
+        1452,
+        1475,
+        1474,
+        1456,
+        1456,
+        1468,
+        1468,
+        1449,
+        1446,
+        1461,
+        1470,
+        1452,
+        1438,
+        1443,
+        1478,
+        1491,
+        1480,
+        1445,
+        1442,
+        1500,
+        1485,
+        1452,
+        1452,
+        1451,
+        1451,
+        1446,
+        1452,
+        1448,
+        1448,
+        1450,
+        1486,
+        1500,
+        1454,
+        1475,
+        1474,
+        1490,
+        1483,
+        1482,
+        1477,
+        1483,
+        1486,
+        1449,
+        1451,
+        1456,
+        1458,
+        1452,
+        1453,
+        1462,
+        1466,
+        1491,
+        1456,
+        1460,
+        1475,
+        1479,
+        1447,
+        1443,
+        1473,
+        1447,
+        1448,
+        1459,
+        1383
+      ],
+      "median": 1456.0,
+      "p90": 1487.3
+    },
+    "recovery": {
+      "horizon_controls": 1795,
+      "metric_role": "benchmark",
+      "final_blocks": {
+        "mean": 3.63,
+        "scene_cluster95": [
+          3.475,
+          3.77
+        ],
+        "histogram": [
+          3,
+          12,
+          9,
+          8,
+          168
+        ]
+      },
+      "peak_blocks": {
+        "mean": 3.82,
+        "scene_cluster95": [
+          3.73,
+          3.9
+        ],
+        "histogram": [
+          0,
+          3,
+          7,
+          13,
+          177
+        ]
+      },
+      "first_reach_by_rank": [
+        {
+          "block": 1,
+          "reached": 200,
+          "rate": 1.0,
+          "median_controls": 278.0
+        },
+        {
+          "block": 2,
+          "reached": 197,
+          "rate": 0.985,
+          "median_controls": 652.0
+        },
+        {
+          "block": 3,
+          "reached": 190,
+          "rate": 0.95,
+          "median_controls": 1018.0
+        },
+        {
+          "block": 4,
+          "reached": 177,
+          "rate": 0.885,
+          "median_controls": 1444.0
+        }
+      ],
+      "failed_controls_since_last_new_peak": {
+        "episodes": 32,
+        "median": 794.0,
+        "p90": 1225.0
+      },
+      "net_tower_loss_episodes": 20,
+      "failed_net_tower_loss_episodes": 20,
+      "count_drop_observed_episodes": 200,
+      "count_drop_episodes": 112,
+      "recovered_after_count_drop": 102,
+      "caveat": "Net tower loss is a lower bound on collapse episodes in historical logs; count drops include transient support changes."
+    },
+    "benchmark_horizon": true,
+    "elapsed_seconds": 10177.276076018927,
+    "controls_per_wall_second": 29.78007041963859,
+    "inference": {
+      "batches": 57104,
+      "requests": 60687,
+      "seconds": 3143.2804656031076,
+      "cuda_graph": {
+        "mode": "on",
+        "captured_graphs": 4,
+        "batch_sizes": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "mean_batch_size": 1.0627451667133652,
+      "model_processes": 1,
+      "device": "cuda:0",
+      "normalized_inputs_before_clip": {
+        "values": 59787000,
+        "abs_max": 16.141008377075195,
+        "fraction_above5": 0.004797163262916688,
+        "fraction_above100": 0.0,
+        "effective_clip": 5.0,
+        "definition": "Consumed observation and valid history features at policy queries; before checkpoint/override clipping."
+      }
+    }
+  },
+  "source_results_sha256": "ccb956fb3f85103fe7510ee3a67355c84fb3a96b7f7879c4e76ea415bfadd7c0"
+}

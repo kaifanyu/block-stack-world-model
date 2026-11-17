@@ -1,0 +1,593 @@
+{
+  "checkpoint": "Privilege FM Policy/policy.pt",
+  "protocol": {
+    "policy": "/workspace/upenn/artifacts/better_scripted_policy_5k_20261112/training/L2-h16-late/step-100000.pt",
+    "policy_sha256": "a38fe3d39829e3d3fbd520d5cf3552462757fff248a3f1f762a07511af0d8c9c",
+    "encoder": null,
+    "encoder_sha256": null,
+    "state_estimator": null,
+    "state_estimator_sha256": null,
+    "split": "val",
+    "scenes": [
+      103002,
+      103026,
+      103032,
+      103039,
+      103084,
+      103099,
+      103105,
+      103122,
+      103125,
+      103141,
+      103154,
+      103180,
+      103184,
+      103185,
+      103190,
+      103203,
+      103208,
+      103222,
+      103224,
+      103240,
+      103242,
+      103252,
+      103258,
+      103262,
+      103278,
+      103285,
+      103311,
+      103315,
+      103324,
+      103326,
+      103329,
+      103348,
+      103354,
+      103355,
+      103356,
+      103367,
+      103378,
+      103392,
+      103397,
+      103400,
+      103405,
+      103415,
+      103419,
+      103420,
+      103424,
+      103455,
+      103466,
+      103485,
+      103503,
+      103507,
+      103541,
+      103547,
+      103556,
+      103561,
+      103567,
+      103569,
+      103585,
+      103592,
+      103593,
+      103610,
+      103613,
+      103625,
+      103633,
+      103639,
+      103644,
+      103667,
+      103668,
+      103677,
+      103679,
+      103694,
+      103722,
+      103731,
+      103734,
+      103738,
+      103748,
+      103765,
+      103792,
+      103795,
+      103812,
+      103817,
+      103818,
+      103819,
+      103829,
+      103848,
+      103857,
+      103859,
+      103861,
+      103863,
+      103874,
+      103881,
+      103886,
+      103900,
+      103916,
+      103924,
+      103934,
+      103945,
+      103959,
+      103960,
+      103966,
+      103968
+    ],
+    "sample_seeds": [
+      0,
+      1
+    ],
+    "horizon": 1795,
+    "renderer": "egl",
+    "egl_device": 4,
+    "mujoco": "3.13.0",
+    "resolution": 128,
+    "target_count": 4,
+    "hold_controls": 10,
+    "settings": {
+      "kind": "distill",
+      "horizon": 1795,
+      "execute_blocks": 1,
+      "ensemble": false,
+      "context": 1,
+      "n_prev_blocks": 16,
+      "phase_input": false,
+      "vision_mode": "frozen",
+      "scripted_visual": false,
+      "scripted_recovery": false,
+      "input_clip": 5.0,
+      "render": false
+    },
+    "flow_steps": 10,
+    "noise_scale": 1.0,
+    "stage_definitions": {
+      "approach": "hand point within 0.10 m of a non-tower object, or force-defined grasp",
+      "grasp": "at least two hand parts pressing the same approached object above 0.05 N",
+      "lift": "the grasped object is airborne under the shared row_lifted definition",
+      "place": "previously lifted object joins a goal-zone support tower of this rank, allowing hand contact",
+      "release_hold": "placed object remains in a hands-free tower of this rank for ten consecutive controls",
+      "rank": "tower count immediately before the approach; object event chains are tracked within each rank"
+    },
+    "smoke": false,
+    "benchmark": true,
+    "comparison_valid": true,
+    "evaluation_role": "benchmark",
+    "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+    "frozen_clock": "180 seconds, clipped at zero for diagnostic horizon extension",
+    "rng": "independent per episode, scene + 1000000 * sample; batches do not share RNG"
+  },
+  "summary": {
+    "completed": true,
+    "episodes": 200,
+    "scenes": 100,
+    "successes": 160,
+    "success_rate": 0.8,
+    "success_wilson95": [
+      0.7391448134346212,
+      0.8495479907390189
+    ],
+    "success_scene_cluster95": [
+      0.74,
+      0.855
+    ],
+    "statistics_note": "Episode Wilson intervals are descriptive; scene-cluster bootstrap accounts for repeated samples.",
+    "stage_conditional": [
+      {
+        "block": 1,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 198,
+          "denominator": 200,
+          "rate": 0.99,
+          "wilson95": [
+            0.9642782382838231,
+            0.9972533418664555
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 2,
+        "grasp_given_approach": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 197,
+          "denominator": 198,
+          "rate": 0.9949494949494949,
+          "wilson95": [
+            0.971951267794997,
+            0.9991079048109474
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 194,
+          "denominator": 197,
+          "rate": 0.9847715736040609,
+          "wilson95": [
+            0.9561911879420029,
+            0.9948076801279593
+          ]
+        }
+      },
+      {
+        "block": 3,
+        "grasp_given_approach": {
+          "numerator": 193,
+          "denominator": 195,
+          "rate": 0.9897435897435898,
+          "wilson95": [
+            0.9633814649495036,
+            0.9971828013398261
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 193,
+          "denominator": 193,
+          "rate": 1.0,
+          "wilson95": [
+            0.9804845033982735,
+            0.9999999999999999
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 189,
+          "denominator": 193,
+          "rate": 0.9792746113989638,
+          "wilson95": [
+            0.9479311630080994,
+            0.9919114956897276
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 178,
+          "denominator": 189,
+          "rate": 0.9417989417989417,
+          "wilson95": [
+            0.8988022925998778,
+            0.967194060161995
+          ]
+        }
+      },
+      {
+        "block": 4,
+        "grasp_given_approach": {
+          "numerator": 179,
+          "denominator": 181,
+          "rate": 0.988950276243094,
+          "wilson95": [
+            0.9606128624263497,
+            0.9969645183694775
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 178,
+          "denominator": 179,
+          "rate": 0.994413407821229,
+          "wilson95": [
+            0.9690386341608527,
+            0.9990131476485308
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 172,
+          "denominator": 178,
+          "rate": 0.9662921348314607,
+          "wilson95": [
+            0.9284215697242858,
+            0.9844615597697713
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 160,
+          "denominator": 172,
+          "rate": 0.9302325581395349,
+          "wilson95": [
+            0.8820244369952259,
+            0.959642829601532
+          ]
+        }
+      }
+    ],
+    "mean_stage_conditional_score": 0.9850266617831481,
+    "stage_score_missing_denominator": "zero, so unreached late stages cannot improve the ranking",
+    "timeouts": 40,
+    "timeout_rate": 0.2,
+    "ground_falls": 2,
+    "ground_fall_episode_rate": 0.01,
+    "mean_final_count": 3.495,
+    "mean_peak_count": 3.775,
+    "controls_to_success": {
+      "values": [
+        1473,
+        1500,
+        1452,
+        1450,
+        1487,
+        1482,
+        1477,
+        1482,
+        1491,
+        1482,
+        1487,
+        1448,
+        1506,
+        1455,
+        1455,
+        1455,
+        1455,
+        1498,
+        1473,
+        1762,
+        1466,
+        1450,
+        1471,
+        1454,
+        1466,
+        1441,
+        1452,
+        1483,
+        1480,
+        1472,
+        1450,
+        1459,
+        1446,
+        1445,
+        1452,
+        1440,
+        1450,
+        1491,
+        1477,
+        1482,
+        1475,
+        1486,
+        1460,
+        1461,
+        1492,
+        1417,
+        1454,
+        1450,
+        1450,
+        1446,
+        1474,
+        1473,
+        1465,
+        1468,
+        1454,
+        1454,
+        1448,
+        1444,
+        1464,
+        1455,
+        1475,
+        1441,
+        1456,
+        1463,
+        1472,
+        1476,
+        1452,
+        1470,
+        1490,
+        1475,
+        1488,
+        1461,
+        1458,
+        1473,
+        1472,
+        1452,
+        1443,
+        1482,
+        1527,
+        1453,
+        1461,
+        1438,
+        1456,
+        1449,
+        1453,
+        1452,
+        1485,
+        1451,
+        1447,
+        1451,
+        1488,
+        1491,
+        1473,
+        1472,
+        1445,
+        1454,
+        1463,
+        1466,
+        1465,
+        1466,
+        1453,
+        1483,
+        1455,
+        1453,
+        1442,
+        1448,
+        1466,
+        1462,
+        1476,
+        1465,
+        1461,
+        1443,
+        1454,
+        1478,
+        1488,
+        1501,
+        1454,
+        1487,
+        1461,
+        1455,
+        1472,
+        1449,
+        1462,
+        1455,
+        1452,
+        1482,
+        1454,
+        1453,
+        1484,
+        1502,
+        1487,
+        1492,
+        1439,
+        1481,
+        1481,
+        1482,
+        1459,
+        1458,
+        1462,
+        1458,
+        1451,
+        1451,
+        1455,
+        1462,
+        1487,
+        1480,
+        1457,
+        1467,
+        1483,
+        1487,
+        1457,
+        1459,
+        1455,
+        1454,
+        1483,
+        1485,
+        1451,
+        1451,
+        1463,
+        1470
+      ],
+      "median": 1462.0,
+      "p90": 1487.1
+    },
+    "recovery": {
+      "horizon_controls": 1795,
+      "metric_role": "benchmark",
+      "final_blocks": {
+        "mean": 3.495,
+        "scene_cluster95": [
+          3.325,
+          3.645
+        ],
+        "histogram": [
+          5,
+          17,
+          12,
+          6,
+          160
+        ]
+      },
+      "peak_blocks": {
+        "mean": 3.775,
+        "scene_cluster95": [
+          3.66,
+          3.865
+        ],
+        "histogram": [
+          2,
+          2,
+          7,
+          17,
+          172
+        ]
+      },
+      "first_reach_by_rank": [
+        {
+          "block": 1,
+          "reached": 198,
+          "rate": 0.99,
+          "median_controls": 279.0
+        },
+        {
+          "block": 2,
+          "reached": 196,
+          "rate": 0.98,
+          "median_controls": 650.0
+        },
+        {
+          "block": 3,
+          "reached": 189,
+          "rate": 0.945,
+          "median_controls": 1014.0
+        },
+        {
+          "block": 4,
+          "reached": 172,
+          "rate": 0.86,
+          "median_controls": 1450.0
+        }
+      ],
+      "failed_controls_since_last_new_peak": {
+        "episodes": 40,
+        "median": 760.0,
+        "p90": 1175.2
+      },
+      "net_tower_loss_episodes": 29,
+      "failed_net_tower_loss_episodes": 29,
+      "count_drop_observed_episodes": 200,
+      "count_drop_episodes": 115,
+      "recovered_after_count_drop": 107,
+      "caveat": "Net tower loss is a lower bound on collapse episodes in historical logs; count drops include transient support changes."
+    },
+    "benchmark_horizon": true,
+    "elapsed_seconds": 3216.3181593079935,
+    "controls_per_wall_second": 95.31053195025522,
+    "inference": {
+      "batches": 15966,
+      "requests": 61378,
+      "seconds": 3125.507904568978,
+      "mean_batch_size": 3.8442941250156584,
+      "model_processes": 1,
+      "device": "cuda:0",
+      "normalized_inputs_before_clip": {
+        "values": 131017820,
+        "abs_max": 197.2450408935547,
+        "fraction_above5": 0.005033315315428085,
+        "fraction_above100": 1.2212079242350393e-07,
+        "effective_clip": 5.0,
+        "definition": "Consumed observation and valid history features at policy queries; before checkpoint/override clipping."
+      }
+    }
+  },
+  "source_results_sha256": "862f5d746ff16f58e3c38a73e4cf50030389011ed5b6e635e712a0dd3d38e080"
+}

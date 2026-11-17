@@ -1,0 +1,625 @@
+{
+  "checkpoint": "RS-IMLE/policy.pt",
+  "protocol": {
+    "policy": "/workspace/upenn/artifacts/fm_speed_campaign_20261114/students/imle-distill/step-060000.pt",
+    "policy_sha256": "5b61bd48ef0bef312a119b37d6adacd29df2ca3c47bef6849f092692af4d40dc",
+    "encoder": null,
+    "encoder_sha256": null,
+    "state_estimator": null,
+    "state_estimator_sha256": null,
+    "split": "val",
+    "scenes": [
+      103002,
+      103026,
+      103032,
+      103039,
+      103084,
+      103099,
+      103105,
+      103122,
+      103125,
+      103141,
+      103154,
+      103180,
+      103184,
+      103185,
+      103190,
+      103203,
+      103208,
+      103222,
+      103224,
+      103240,
+      103242,
+      103252,
+      103258,
+      103262,
+      103278,
+      103285,
+      103311,
+      103315,
+      103324,
+      103326,
+      103329,
+      103348,
+      103354,
+      103355,
+      103356,
+      103367,
+      103378,
+      103392,
+      103397,
+      103400,
+      103405,
+      103415,
+      103419,
+      103420,
+      103424,
+      103455,
+      103466,
+      103485,
+      103503,
+      103507,
+      103541,
+      103547,
+      103556,
+      103561,
+      103567,
+      103569,
+      103585,
+      103592,
+      103593,
+      103610,
+      103613,
+      103625,
+      103633,
+      103639,
+      103644,
+      103667,
+      103668,
+      103677,
+      103679,
+      103694,
+      103722,
+      103731,
+      103734,
+      103738,
+      103748,
+      103765,
+      103792,
+      103795,
+      103812,
+      103817,
+      103818,
+      103819,
+      103829,
+      103848,
+      103857,
+      103859,
+      103861,
+      103863,
+      103874,
+      103881,
+      103886,
+      103900,
+      103916,
+      103924,
+      103934,
+      103945,
+      103959,
+      103960,
+      103966,
+      103968
+    ],
+    "sample_seeds": [
+      0,
+      1
+    ],
+    "horizon": 1795,
+    "renderer": "egl",
+    "egl_device": 3,
+    "mujoco": "3.13.0",
+    "resolution": 128,
+    "target_count": 4,
+    "hold_controls": 10,
+    "settings": {
+      "kind": "distill",
+      "horizon": 1795,
+      "execute_blocks": 1,
+      "ensemble": false,
+      "context": 3,
+      "n_prev_blocks": 8,
+      "phase_input": false,
+      "vision_mode": "raw",
+      "scripted_visual": false,
+      "scripted_recovery": false,
+      "input_clip": 5.0,
+      "render": true
+    },
+    "flow_steps": 1,
+    "noise_scale": 0.0,
+    "cuda_graph": "on",
+    "solver": "euler",
+    "time_shift": 1.0,
+    "stage_definitions": {
+      "approach": "hand point within 0.10 m of a non-tower object, or force-defined grasp",
+      "grasp": "at least two hand parts pressing the same approached object above 0.05 N",
+      "lift": "the grasped object is airborne under the shared row_lifted definition",
+      "place": "previously lifted object joins a goal-zone support tower of this rank, allowing hand contact",
+      "release_hold": "placed object remains in a hands-free tower of this rank for ten consecutive controls",
+      "rank": "tower count immediately before the approach; object event chains are tracked within each rank"
+    },
+    "smoke": false,
+    "benchmark": false,
+    "comparison_valid": true,
+    "evaluation_role": "benchmark",
+    "panel_sha256": "03633bf039aab86c30b124363508bd8039fbb8733f30e666a08dc37ec256512a",
+    "panel_role": "development",
+    "selection_manifest_sha256": null,
+    "frozen_clock": "180 seconds, clipped at zero for diagnostic horizon extension",
+    "rng": "independent per episode, scene + 1000000 * sample; batches do not share RNG"
+  },
+  "summary": {
+    "completed": true,
+    "episodes": 200,
+    "scenes": 100,
+    "successes": 176,
+    "success_rate": 0.88,
+    "success_wilson95": [
+      0.8276574790170326,
+      0.9180200729362449
+    ],
+    "success_scene_cluster95": [
+      0.83,
+      0.925
+    ],
+    "statistics_note": "Episode Wilson intervals are descriptive; scene-cluster bootstrap accounts for repeated samples.",
+    "stage_conditional": [
+      {
+        "block": 1,
+        "grasp_given_approach": {
+          "numerator": 200,
+          "denominator": 200,
+          "rate": 1.0,
+          "wilson95": [
+            0.9811546736227335,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 198,
+          "denominator": 200,
+          "rate": 0.99,
+          "wilson95": [
+            0.9642782382838231,
+            0.9972533418664555
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 2,
+        "grasp_given_approach": {
+          "numerator": 198,
+          "denominator": 198,
+          "rate": 1.0,
+          "wilson95": [
+            0.9809679396733518,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 197,
+          "denominator": 198,
+          "rate": 0.9949494949494949,
+          "wilson95": [
+            0.971951267794997,
+            0.9991079048109474
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        }
+      },
+      {
+        "block": 3,
+        "grasp_given_approach": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 197,
+          "denominator": 197,
+          "rate": 1.0,
+          "wilson95": [
+            0.9808731780616886,
+            1.0
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 194,
+          "denominator": 197,
+          "rate": 0.9847715736040609,
+          "wilson95": [
+            0.9561911879420029,
+            0.9948076801279593
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 190,
+          "denominator": 194,
+          "rate": 0.979381443298969,
+          "wilson95": [
+            0.9481933892491099,
+            0.9919533378763397
+          ]
+        }
+      },
+      {
+        "block": 4,
+        "grasp_given_approach": {
+          "numerator": 190,
+          "denominator": 192,
+          "rate": 0.9895833333333334,
+          "wilson95": [
+            0.9628214588546004,
+            0.997138710621703
+          ]
+        },
+        "lift_given_grasp": {
+          "numerator": 190,
+          "denominator": 190,
+          "rate": 1.0,
+          "wilson95": [
+            0.9801824705402803,
+            0.9999999999999999
+          ]
+        },
+        "place_given_lift": {
+          "numerator": 184,
+          "denominator": 190,
+          "rate": 0.968421052631579,
+          "wilson95": [
+            0.9328278934805336,
+            0.985448315762466
+          ]
+        },
+        "release_hold_given_place": {
+          "numerator": 176,
+          "denominator": 184,
+          "rate": 0.9565217391304348,
+          "wilson95": [
+            0.9165644224588859,
+            0.9778068257987526
+          ]
+        }
+      }
+    ],
+    "mean_stage_conditional_score": 0.991476789809242,
+    "stage_score_missing_denominator": "zero, so unreached late stages cannot improve the ranking",
+    "timeouts": 24,
+    "timeout_rate": 0.12,
+    "ground_falls": 3,
+    "ground_fall_episode_rate": 0.01,
+    "mean_final_count": 3.725,
+    "mean_peak_count": 3.865,
+    "controls_to_success": {
+      "values": [
+        1458,
+        1451,
+        1499,
+        1498,
+        1453,
+        1449,
+        1498,
+        1479,
+        1504,
+        1504,
+        1494,
+        1500,
+        1483,
+        1484,
+        1484,
+        1451,
+        1445,
+        1510,
+        1487,
+        1487,
+        1454,
+        1456,
+        1472,
+        1503,
+        1497,
+        1466,
+        1466,
+        1472,
+        1472,
+        1464,
+        1465,
+        1481,
+        1478,
+        1451,
+        1471,
+        1458,
+        1459,
+        1450,
+        1448,
+        1442,
+        1445,
+        1469,
+        1477,
+        1481,
+        1483,
+        1459,
+        1481,
+        1448,
+        1478,
+        1503,
+        1443,
+        1447,
+        1448,
+        1446,
+        1445,
+        1465,
+        1445,
+        1451,
+        1464,
+        1454,
+        1457,
+        1455,
+        1459,
+        1463,
+        1467,
+        1465,
+        1443,
+        1447,
+        1452,
+        1454,
+        1453,
+        1454,
+        1446,
+        1451,
+        1455,
+        1473,
+        1476,
+        1478,
+        1497,
+        1457,
+        1456,
+        1479,
+        1474,
+        1450,
+        1458,
+        1498,
+        1476,
+        1470,
+        1466,
+        1453,
+        1463,
+        1473,
+        1446,
+        1450,
+        1450,
+        1447,
+        1481,
+        1484,
+        1452,
+        1461,
+        1449,
+        1487,
+        1486,
+        1447,
+        1443,
+        1448,
+        1444,
+        1455,
+        1461,
+        1464,
+        1465,
+        1474,
+        1480,
+        1454,
+        1459,
+        1446,
+        1472,
+        1473,
+        1452,
+        1469,
+        1454,
+        1454,
+        1436,
+        1440,
+        1479,
+        1480,
+        1476,
+        1476,
+        1454,
+        1452,
+        1482,
+        1484,
+        1454,
+        1453,
+        1457,
+        1456,
+        1466,
+        1451,
+        1456,
+        1456,
+        1452,
+        1452,
+        1499,
+        1500,
+        1458,
+        1479,
+        1479,
+        1488,
+        1490,
+        1470,
+        1468,
+        1479,
+        1479,
+        1505,
+        1456,
+        1457,
+        1461,
+        1457,
+        1457,
+        1458,
+        1450,
+        1487,
+        1464,
+        1441,
+        1486,
+        1486,
+        1450,
+        1451,
+        1454,
+        1454,
+        1497,
+        1487,
+        1454,
+        1453,
+        1467,
+        1464
+      ],
+      "median": 1461.0,
+      "p90": 1489.0
+    },
+    "recovery": {
+      "horizon_controls": 1795,
+      "metric_role": "benchmark",
+      "final_blocks": {
+        "mean": 3.725,
+        "scene_cluster95": [
+          3.58,
+          3.85
+        ],
+        "histogram": [
+          3,
+          8,
+          6,
+          7,
+          176
+        ]
+      },
+      "peak_blocks": {
+        "mean": 3.865,
+        "scene_cluster95": [
+          3.755,
+          3.945
+        ],
+        "histogram": [
+          2,
+          1,
+          3,
+          10,
+          184
+        ]
+      },
+      "first_reach_by_rank": [
+        {
+          "block": 1,
+          "reached": 198,
+          "rate": 0.99,
+          "median_controls": 278.0
+        },
+        {
+          "block": 2,
+          "reached": 197,
+          "rate": 0.985,
+          "median_controls": 656.0
+        },
+        {
+          "block": 3,
+          "reached": 194,
+          "rate": 0.97,
+          "median_controls": 1020.0
+        },
+        {
+          "block": 4,
+          "reached": 184,
+          "rate": 0.92,
+          "median_controls": 1448.0
+        }
+      ],
+      "failed_controls_since_last_new_peak": {
+        "episodes": 24,
+        "median": 776.0,
+        "p90": 1418.7999999999997
+      },
+      "net_tower_loss_episodes": 17,
+      "failed_net_tower_loss_episodes": 17,
+      "count_drop_observed_episodes": 200,
+      "count_drop_episodes": 103,
+      "recovered_after_count_drop": 101,
+      "caveat": "Net tower loss is a lower bound on collapse episodes in historical logs; count drops include transient support changes."
+    },
+    "benchmark_horizon": true,
+    "elapsed_seconds": 9865.921916085994,
+    "controls_per_wall_second": 30.516864159881877,
+    "inference": {
+      "batches": 57614,
+      "requests": 60288,
+      "seconds": 2467.8336895313114,
+      "cuda_graph": {
+        "mode": "on",
+        "captured_graphs": 5,
+        "batch_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "mean_batch_size": 1.0464123303363766,
+      "model_processes": 1,
+      "device": "cuda:0",
+      "normalized_inputs_before_clip": {
+        "values": 59388000,
+        "abs_max": 16.141008377075195,
+        "fraction_above5": 0.00460950023573786,
+        "fraction_above100": 0.0,
+        "effective_clip": 5.0,
+        "definition": "Consumed observation and valid history features at policy queries; before checkpoint/override clipping."
+      }
+    }
+  },
+  "source_results_sha256": "d2f9e8a9fd473e865463a36d1b6a2c705b96e0fe0aaa980a2966c752b31dbec9"
+}

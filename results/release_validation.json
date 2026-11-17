@@ -1,0 +1,133 @@
+{
+  "tests": {
+    "passed": 115,
+    "skipped": 1,
+    "subtests_passed": 6,
+    "command": "MUJOCO_GL=egl python -m pytest -q tests"
+  },
+  "checkpoint_smoke": {
+    "smwm_embedding_shape": [
+      1,
+      3,
+      192
+    ],
+    "all_finite": true,
+    "policies": [
+      {
+        "model": "rs-imle",
+        "completed": true,
+        "episodes": 1,
+        "horizon": 20,
+        "split": "train",
+        "exit_code": 0
+      },
+      {
+        "model": "rgb-fm",
+        "completed": true,
+        "episodes": 1,
+        "horizon": 20,
+        "split": "train",
+        "exit_code": 0
+      },
+      {
+        "model": "privilege-fm",
+        "completed": true,
+        "episodes": 1,
+        "horizon": 20,
+        "split": "train",
+        "exit_code": 0
+      },
+      {
+        "model": "smwm-fm",
+        "completed": true,
+        "episodes": 1,
+        "horizon": 20,
+        "split": "train",
+        "exit_code": 0
+      },
+      {
+        "model": "act-jepa",
+        "completed": true,
+        "episodes": 1,
+        "horizon": 20,
+        "split": "train",
+        "exit_code": 0
+      },
+      {
+        "model": "td-mpc",
+        "completed": true,
+        "episodes": 1,
+        "horizon": 20,
+        "split": "train",
+        "exit_code": 0
+      }
+    ]
+  },
+  "cli_checks": [
+    {
+      "entry": "scripts/download_checkpoints.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "scripts/evaluate_policy.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "scripts/collect_better_scripted.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "scripts/pack_better_scripted.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "scripts/build_distill_dataset.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "scripts/evaluate_distill.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "scripts/train_fast_student.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "ACT-JEPA/train.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "ACT-JEPA/evaluate.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "ACT-JEPA/collect_rollouts.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "TD-MPC/train.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "TD-MPC/evaluate.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "TD-MPC/collect_rollouts.py",
+      "exit_code": 0
+    },
+    {
+      "entry": "RS-IMLE/train.py",
+      "exit_code": 0
+    }
+  ],
+  "runtime": {
+    "torch": "2.11.0+cu128",
+    "mujoco": "3.13.0",
+    "numpy": "2.4.6",
+    "gymnasium": "1.4.0",
+    "huggingface_hub": "2.4.0",
+    "pytest": "9.2.0"
+  },
+  "note": "Packaging and installation smoke checks only. The historical development scores were not re-evaluated; no new training or final-test evaluation was run."
+}

@@ -27,3 +27,10 @@ onpolicy-*/
 # Runtime analysis views and large policy outputs; catalog/docs stay in Git.
 /analysis/*/
 /exports/
+
+.pytest_cache/
+*.pt
+*.pth
+*.safetensors
+
+/assets/sharpa

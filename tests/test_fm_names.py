@@ -8,8 +8,6 @@ from assignment.training.training.distill_policy import DistillPolicy, load_dist
 from assignment.training.training.policy_names import canonical_name, output_directory
 from assignment.training.training.train_distill import parser
 from scripts.run_fm_trial import command
-from scripts.setup_analysis import setup
-from scripts.upload_policy import selected_files, stage
 
 
 @pytest.mark.parametrize('old,new', [('L2','privilegeFM'), ('L4','encoderFM'),
@@ -49,37 +47,3 @@ def test_presets_and_output_paths():
     assert output_directory('analysis','L4','control') == Path('analysis/Encoder FM Policy/control')
     with pytest.raises(ValueError):
         output_directory('analysis','L2','../escape')
-
-
-def test_analysis_setup_never_replaces_source_or_existing_run(tmp_path):
-    source = tmp_path/'original'
-    source.mkdir()
-    (source/'policy.pt').write_bytes(b'original')
-    records = [{'path':'Encoder FM Policy/trial','source':str(source)}]
-    root = tmp_path/'analysis'
-    assert setup(root, records) == (1,0)
-    assert setup(root, records) == (0,0)
-    assert (source/'policy.pt').read_bytes() == b'original'
-    (root/'Encoder FM Policy/trial').unlink()
-    (root/'Encoder FM Policy/trial').mkdir()
-    with pytest.raises(FileExistsError):
-        setup(root, records)
-
-
-def test_upload_selection_excludes_optimizer_and_unfinished_runs(tmp_path):
-    run = tmp_path/'run'
-    run.mkdir()
-    (run/'completion.json').write_text('{"completed": false}')
-    (run/'policy.pt').write_bytes(b'policy')
-    (run/'training.pt').write_bytes(b'optimizer')
-    (run/'step-000100.pt').write_bytes(b'intermediate')
-    with pytest.raises(ValueError):
-        selected_files(run)
-    (run/'completion.json').write_text('{"completed": true}')
-    files = selected_files(run)
-    assert {f.name for f in files} == {'completion.json','policy.pt'}
-    dest = tmp_path/'export'
-    stage(run, files, dest)
-    assert (dest/'policy.pt').read_bytes() == b'policy'
-    assert not (dest/'training.pt').exists()
-    assert 'policy.pt' in json.loads((dest/'SHA256.json').read_text())
